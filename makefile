@@ -3,7 +3,7 @@ CC=gcc
 CCFLAGS=
 INCLUDES=
 LFLAGS=-L/usr/lib/x86_64-linux-gnu
-LIBS=-libcurl -lpthread
+LIBS=-lcurl -lpthread
 
 SRC=requestor.c
 OBJ=$(SRC:.c=.o)
