@@ -15,8 +15,8 @@ int main(void) {
     curl = curl_easy_init();
 
     if(curl) {
-        curl_easy_septopt(curl, CURLOPT_URL, URL);
-        curl_easy_septopt(curl, CURLOPT_FOLLOWLCOATION, 1L);
+        curl_easy_setopt(curl, CURLOPT_URL, URL);
+        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
         res = curl_easy_perform(curl);
 
         if(res != CURLE_OK) {
