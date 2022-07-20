@@ -17,7 +17,7 @@ RM=rm -rf
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(MAIN): $(OBJ)
-	$(CC) $(CFLAGS) 4(INCLUDES) -o $(MAIN) $(OBJ) $(LFLAGS) $(LIBS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJ) $(LFLAGS) $(LIBS)
 
 all: $(MAIN)
 
