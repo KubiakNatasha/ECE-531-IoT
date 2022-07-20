@@ -4,15 +4,15 @@ DAEMON_NAME="SAMPLE-DAEMON"
 
 start() {
     printf "Starting $DAEMON_NAME: "
-    /usr/sbin/$DAEMON_NAME
-    touch /var/lock/$DAEMON_NAME
+    # /usr/sbin/$DAEMON_NAME
+    # touch /var/lock/$DAEMON_NAME
     echo "OK"
 }
 
 stop() {
     printf "Stopping $DAEMON_NAME: "
-    killall $DAEMON_NAME
-    rm -f /var/lock/$DAEMON_NAME
+    # killall $DAEMON_NAME
+    # rm -f /var/lock/$DAEMON_NAME
     echo "OK"
 }
 
