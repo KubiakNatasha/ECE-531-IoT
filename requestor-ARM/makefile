@@ -5,7 +5,7 @@ CFLAGS=--sysroot=$(BUILDROOT_HOME)/output/staging
 INCLUDES=
 LFLAGS=
 
-LIBS=-lcurl -uClibc -lc
+LIBS= -lcurl -uClibc -lc
 
 SRC=requestor.c
 OBJ=$(SRC:.c=.o)
