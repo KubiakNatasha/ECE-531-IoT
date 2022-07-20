@@ -6,6 +6,7 @@
 #define REQ_ERR     2
 
 #define URL         "http://localhost:8000"
+#define HOST_IP     "http://10.0.2.15:8000"
 
 int main(void) {
   
@@ -15,7 +16,7 @@ int main(void) {
     curl = curl_easy_init();
 
     if(curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, URL);
+        curl_easy_setopt(curl, CURLOPT_URL, HOST_IP);
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
         res = curl_easy_perform(curl);
 
