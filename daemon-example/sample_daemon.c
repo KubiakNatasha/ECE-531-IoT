@@ -1,3 +1,21 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <syslog.h>
+
+#define OK              0
+#define ERR_SETSID      1
+#define SIGTERM         2
+#define SIGHUP          3
+#define ERR_FORK        4
+#define ERR_CHDIR       5
+#define ERR_WTF         9
+#define DAEMON_NAME     "SAMPLED"
+
+
 int main(void) {
 
 
@@ -6,14 +24,17 @@ int main(void) {
 
     pid_t pid = fork();
 
+    //check if child
     if (pid < 0){
         syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
         return ERR_FORK;
     }
-
+    // check if parent process, continue
     if (pid > 0){
         return OK;
     }
+
+
 
     if(setsid() < -1) {
         syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
