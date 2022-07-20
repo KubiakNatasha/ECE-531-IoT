@@ -10,6 +10,7 @@
 
 int main(void) {
   
+    printf("helllo world");
     CURL    *curl;
     CURLcode res;
 
