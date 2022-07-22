@@ -10,11 +10,13 @@
 
 #define OK              0
 #define ERR_SETSID      1
-#define SIGTERM         2
-#define SIGHUP          3
+#define ERROR           1
 #define ERR_FORK        1
-#define ERR_CHDIR       5
-#define ERROR           6
+#define ERR_CHDIR       1
+#define SIGTERM         2
+#define SIGHUP          2
+
+
 #define DAEMON_NAME     "SAMPLED"
 
 /****************Define functions**********/
@@ -34,7 +36,7 @@ int main(void) {
 
     //check if child
     if (pid < 0){
-        syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
+        syslog(LOG_ERR, strerror(errno));
         return ERR_FORK;
     }
     // check if parent process, continue
@@ -45,7 +47,7 @@ int main(void) {
 
 
     if(setsid() < -1) {
-        syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
+        syslog(LOG_ERR, strerror(errno));
         return ERR_SETSID;
     }
 
