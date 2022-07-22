@@ -90,12 +90,15 @@ int main(void) {
     //counts and sleeps
     //declared as non-static
 void _do_work(void){
+    struct timeval current_time;
+    gettimeofday(&current_time, NULL);
 
-    printf("\nINSIDE DO WORK FUCNT");
     for (int i = 0; true; i++){
-        time_t seconds;
-        seconds = time(NULL);
-        syslog(LOG_INFO, "iteration:%d, Time:%ld", i,seconds);
+       
+        struct timeval current_time;
+        gettimeofday(&current_time, NULL);
+      
+        syslog(LOG_INFO, "iteration:%d, Time:%ld", i,current_time.tv_sec);
         sleep(1);
     }
 }
