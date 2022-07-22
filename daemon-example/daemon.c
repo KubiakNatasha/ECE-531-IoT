@@ -73,8 +73,8 @@ int main(void) {
 
     //work will be done by daemon
     //counts and sleeps
-
-static void _do_work(void){
+    //declared as non-static
+void _do_work(void){
     for (int i = 0; 10; i++){
         syslog(LOG_INFO, "iteration:%d", i);
         sleep(1);
@@ -84,8 +84,8 @@ static void _do_work(void){
 
 
     //signal handler which will handle any signals passed
-
-static void _signal_handler(cons in signal) {
+    //declared as non static
+void _signal_handler(cons in signal) {
     switch(signal) {
         case SIGHUP:
             break;
