@@ -10,7 +10,7 @@
 #include <time.h>
 
 
-#define DAEMON_NAME     "SAMPLED"
+#define DAEMON_NAME     "sampled"
 
 #define OK              0
 #define ERR_SETSID      1
