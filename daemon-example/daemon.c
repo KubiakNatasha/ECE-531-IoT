@@ -8,18 +8,21 @@
 #include <syslog.h>
 #include <string.h>
 
+
+#define DAEMON_NAME     "SAMPLED"
+
 #define OK              0
 #define ERR_SETSID      1
 #define ERROR           1
 #define ERR_FORK        1
 #define ERR_CHDIR       1
-#define ERROR_FORMAT    9
 /*Case Values*/
 #define SIGTERM         2
 #define SIGHUP          3
+/*Error Format*/
+char *ERROR_FORMAT = "Format Error";
 
 
-#define DAEMON_NAME     "SAMPLED"
 
 /****************Define functions**********/
 void _signal_handler(const int signal);
@@ -32,7 +35,7 @@ int main(void) {
 
     openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
     syslog(LOG_INFO, "starting sampled");
-    printf("hello1");
+    
 
     /* fork off the parent process*/
     pid_t pid = fork();
@@ -73,7 +76,7 @@ int main(void) {
 
     signal(SIGTERM, _signal_handler);
     signal(SIGHUP, _signal_handler);
-    printf("\ndo work");
+    
     _do_work();
 
 
@@ -85,8 +88,9 @@ int main(void) {
     //counts and sleeps
     //declared as non-static
 void _do_work(void){
+
     printf("\nINSIDE DO WORK FUCNT");
-    for (int i = 0; 10; i++){
+    for (int i = 0; true; i++){
         syslog(LOG_INFO, "iteration:%d", i);
         sleep(1);
     }
@@ -97,6 +101,7 @@ void _do_work(void){
     //signal handler which will handle any signals passed
     //declared as non static
 void _signal_handler(const int signal) {
+
     switch(signal) {
 
         case SIGHUP:
