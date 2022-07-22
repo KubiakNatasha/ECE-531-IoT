@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <syslog.h>
 #include <string.h>
+#include <time.h>
 
 
 #define DAEMON_NAME     "SAMPLED"
@@ -92,7 +93,9 @@ void _do_work(void){
 
     printf("\nINSIDE DO WORK FUCNT");
     for (int i = 0; true; i++){
-        syslog(LOG_INFO, "iteration:%d", i);
+        time_t seconds;
+        seconds = time(NULL);
+        syslog(LOG_INFO, "iteration:%d, Time:%ld", i,seconds);
         sleep(1);
     }
 }
