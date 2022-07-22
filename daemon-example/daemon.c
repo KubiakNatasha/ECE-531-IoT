@@ -14,8 +14,9 @@
 #define ERR_FORK        1
 #define ERR_CHDIR       1
 #define ERROR_FORMAT    9
+
 #define SIGTERM         2
-#define SIGHUP          2
+#define SIGHUP          3
 
 
 #define DAEMON_NAME     "SAMPLED"
@@ -95,6 +96,7 @@ void _do_work(void){
     //declared as non static
 void _signal_handler(const int signal) {
     switch(signal) {
+
         case SIGHUP:
             break;
 
@@ -103,6 +105,7 @@ void _signal_handler(const int signal) {
             closelog();
             exit(OK);
             break;
+
         default:
             syslog(LOG_INFO, "recieved unhandled signal.");
     }
