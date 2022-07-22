@@ -14,7 +14,7 @@
 #define ERR_FORK        1
 #define ERR_CHDIR       1
 #define ERROR_FORMAT    9
-
+/*Case Values*/
 #define SIGTERM         2
 #define SIGHUP          3
 
