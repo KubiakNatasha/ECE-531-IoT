@@ -18,8 +18,8 @@
 #define DAEMON_NAME     "SAMPLED"
 
 /****************Define functions**********/
-void _signal_handler(cons in signal);
-void _do_work(void)
+void _signal_handler(const int signal);
+void _do_work(void);
 /******************************************/
 
 
@@ -90,7 +90,7 @@ void _do_work(void){
 
     //signal handler which will handle any signals passed
     //declared as non static
-void _signal_handler(cons in signal) {
+void _signal_handler(const int signal) {
     switch(signal) {
         case SIGHUP:
             break;
