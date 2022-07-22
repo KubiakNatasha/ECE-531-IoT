@@ -32,10 +32,11 @@ int main(void) {
 
     openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
     syslog(LOG_INFO, "starting sampled");
+    printf("hello1");
 
     /* fork off the parent process*/
     pid_t pid = fork();
-
+    
     //check if child
     if (pid < 0){
         syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
@@ -72,7 +73,7 @@ int main(void) {
 
     signal(SIGTERM, _signal_handler);
     signal(SIGHUP, _signal_handler);
-
+    printf("\ndo work");
     _do_work();
 
 
@@ -84,6 +85,7 @@ int main(void) {
     //counts and sleeps
     //declared as non-static
 void _do_work(void){
+    printf("\nINSIDE DO WORK FUCNT");
     for (int i = 0; 10; i++){
         syslog(LOG_INFO, "iteration:%d", i);
         sleep(1);
