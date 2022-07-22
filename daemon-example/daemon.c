@@ -93,7 +93,7 @@ void _do_work(void){
     struct timeval current_time;
     gettimeofday(&current_time, NULL);
 
-    for (int i = 0; true; i++){
+    for (int i = 0; 1000; i++){
        
         struct timeval current_time;
         gettimeofday(&current_time, NULL);
