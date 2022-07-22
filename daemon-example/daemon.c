@@ -13,9 +13,10 @@
 
 #define OK              0
 #define ERR_SETSID      1
-#define ERROR           1
-#define ERR_FORK        1
-#define ERR_CHDIR       1
+#define ERROR           2
+#define ERR_FORK        3
+#define ERR_CHDIR       4
+#define true            0
 /*Case Values*/
 #define SIGTERM         2
 #define SIGHUP          3
