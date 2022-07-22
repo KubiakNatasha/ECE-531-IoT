@@ -13,6 +13,7 @@
 #define ERROR           1
 #define ERR_FORK        1
 #define ERR_CHDIR       1
+#define ERROR_FORMAT    9
 #define SIGTERM         2
 #define SIGHUP          2
 
@@ -36,7 +37,7 @@ int main(void) {
 
     //check if child
     if (pid < 0){
-        syslog(LOG_ERR, strerror(errno));
+        syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
         return ERR_FORK;
     }
     // check if parent process, continue
@@ -47,7 +48,7 @@ int main(void) {
 
 
     if(setsid() < -1) {
-        syslog(LOG_ERR, strerror(errno));
+        syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
         return ERR_SETSID;
     }
 
