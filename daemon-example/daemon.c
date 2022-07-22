@@ -17,6 +17,11 @@
 #define ERROR           6
 #define DAEMON_NAME     "SAMPLED"
 
+/****************Define functions**********/
+void _signal_handler(cons in signal);
+void _do_work(void)
+/******************************************/
+
 
 int main(void) {
 
