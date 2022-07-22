@@ -1,16 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <string.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <unistd.h>
 #include <syslog.h>
+#include <string.h>
 
 #define OK              0
 #define ERR_SETSID      1
 #define SIGTERM         2
 #define SIGHUP          3
-#define ERR_FORK        4
+#define ERR_FORK        1
 #define ERR_CHDIR       5
 #define ERROR           6
 #define DAEMON_NAME     "SAMPLED"
@@ -22,6 +24,7 @@ int main(void) {
     openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
     syslog(LOG_INFO, "starting sampled");
 
+    /* fork off the parent process*/
     pid_t pid = fork();
 
     //check if child
