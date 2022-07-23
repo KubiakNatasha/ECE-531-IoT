@@ -6,7 +6,7 @@ INCLUDES=
 LFLAGS=-L/usr/lib/x86_64-linux-gnu
 LIBS=
 
-SRC=daemon.c
+SRC=sampled.c
 OBJ=$(SRC:.c=.o)
 MAIN=sampled
 
