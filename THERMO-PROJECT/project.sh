@@ -10,16 +10,8 @@ cat credentials.txt
 printf "\n...\n"
 sleep 5
 printf "Log into VM using Credentials...\n"
-
-printf "After login to VM, type \"thermostat --help\" to show help info\n"
-printf "...\n"
-sleep 8
-printf "Thank you!\n"
-printf "...\n"
-sleep 2
-
-printf "Booting VM\n"
-printf "...\n"
-sleep 2
+sleep 5
+printf "Starting Image VM...\n"
+sleep 5
 cd buildroot/
 ./qemu-versatile-shell.sh
