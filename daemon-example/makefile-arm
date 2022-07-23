@@ -6,7 +6,7 @@ LFLAGS=
 
 LIBS=
 
-SRC=sample_daemon.c
+SRC=sampled.c
 OBJ=$(SRC:.c=.o)
 MAIN=sampled
 
