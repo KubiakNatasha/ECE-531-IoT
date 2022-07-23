@@ -118,8 +118,7 @@ void _signal_handler(const int signal) {
 
         default:
             syslog(LOG_INFO, "recieved unhandled signal.");
-            closelog();
-            exit(OK);
-
+             closelog();
+             exit(OK);
     }
 }
