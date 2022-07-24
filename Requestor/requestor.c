@@ -16,7 +16,7 @@ void POST(char *url, CURL *curl, CURLcode res, char *postdata);
 void DELETE(char *url, CURL *curl, CURLcode res, char *postdata);
 
 
-int main() {
+int main(int argc, char **argv) {
 	
 	CURL *curl;
 	CURLcode res;
