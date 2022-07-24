@@ -13,8 +13,7 @@ void Help();
 void GET(char *url, CURL *curl, CURLcode res);
 void PUT(char *url, CURL *curl, CURLcode res ,char *postdata);
 void POST(char *url, CURL *curl, CURLcode res, char *postdata);
-void PUT();
-void DELETE();
+void DELETE(char *url, CURL *curl, CURLcode res, char *postdata)
 
 int main(void) {
   
@@ -23,16 +22,16 @@ int main(void) {
 
     curl = curl_easy_init();
 
-    if(curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, URL);
-        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-        res = curl_easy_perform(curl);
+    // if(curl) {
+    //     curl_easy_setopt(curl, CURLOPT_URL, URL);
+    //     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+    //     res = curl_easy_perform(curl);
 
-        if(res != CURLE_OK) {
-            return REQ_ERR;
-        }
-        curl_easy_cleanup(curl);
-    }
+    //     if(res != CURLE_OK) {
+    //         return REQ_ERR;
+    //     }
+    //     curl_easy_cleanup(curl);
+    // }
     else {
         return INIT_ERR;
     }
@@ -128,10 +127,29 @@ void POST(char *url, CURL *curl, CURLcode res, char *postdata) {
 		res = curl_easy_perform(curl);
 
             if(res != CURLE_OK) {
-                fprintf(stderr, "[CURL] Could not execute HTTP POST: %s\n", 
+                fprintf(stderr, "Curl unable to HTTP POST %s\n", 
                 curl_easy_strerror(res));
             }
         
+		curl_easy_cleanup(curl);
+	}
+}
+
+
+void DELETE(char *url, CURL *curl, CURLcode res, char *postdata) {
+	
+	curl = curl_easy_init();
+
+	if(curl) {
+		curl_easy_setopt(curl, CURLOPT_URL, url);
+		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content);
+		res = curl_easy_perform(curl);
+
+            if(res != CURLE_OK) {
+                fprintf(stderr, "Curl unable to HTTP DELETE %s\n", 
+                curl_easy_strerror(res));
+            }
 		curl_easy_cleanup(curl);
 	}
 }
