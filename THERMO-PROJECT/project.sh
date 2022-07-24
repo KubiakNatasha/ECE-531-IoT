@@ -7,8 +7,6 @@ sleep 5
 
 
 cat credentials.txt
-printf "\n...\n"
-sleep 5
 printf "Log into VM using Credentials...\n"
 sleep 5
 printf "Starting Image VM...\n"
