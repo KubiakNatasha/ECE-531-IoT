@@ -13,7 +13,7 @@ void HELP();
 void GET(char *url, CURL *curl, CURLcode res);
 void PUT(char *url, CURL *curl, CURLcode res ,char *postdata);
 void POST(char *url, CURL *curl, CURLcode res, char *postdata);
-void DELETE(char *url, CURL *curl, CURLcode res, char *postdata)
+void DELETE(char *url, CURL *curl, CURLcode res, char *postdata);
 
 
 int main() {
@@ -27,8 +27,6 @@ int main() {
 			
 		}
 
-	
-	
 	return OK;
 }
 
