@@ -9,7 +9,7 @@
 #define URL         "http://localhost:8000"
 
 /*********PROTOTYPE**************/
-void Help();
+void HELP();
 void GET(char *url, CURL *curl, CURLcode res);
 void PUT(char *url, CURL *curl, CURLcode res ,char *postdata);
 void POST(char *url, CURL *curl, CURLcode res, char *postdata);
@@ -41,7 +41,7 @@ int main(void) {
 }
 
 
-void Help()
+void HELP()
 {
 	printf("REQUESTOR HELP:\n");
     printf("-------------------------\n\n");
