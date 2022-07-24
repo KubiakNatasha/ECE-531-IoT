@@ -24,8 +24,7 @@ int main() {
     /* Handle bad arguments*/
     if(argc <= 1) {
 			printf("Empty Argument:\n");
-			usage();
-			exit(-1);
+			
 		}
 
 	
