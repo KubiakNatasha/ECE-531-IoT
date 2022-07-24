@@ -79,7 +79,7 @@ void GET(char *url, CURL *curl, CURLcode res) {
 
             if(res != CURLE_OK) {
                 fprintf(stderr, "Curl unable to http GET %s\n", 
-                        curl_easy_strerror(res))        
+                        curl_easy_strerror(res));       
             }
 		curl_easy_cleanup(curl);
 	}
@@ -133,7 +133,7 @@ void DELETE(char *url, CURL *curl, CURLcode res, char *postdata) {
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, url);
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
 		res = curl_easy_perform(curl);
 
             if(res != CURLE_OK) {
