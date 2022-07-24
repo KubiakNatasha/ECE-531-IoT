@@ -10,8 +10,9 @@
 
 /*********PROTOTYPE**************/
 void Help();
-void GET(char *url, CURL *curl, CURLcode res)
-void POST();
+void GET(char *url, CURL *curl, CURLcode res);
+void PUT(char *url, CURL *curl, CURLcode res ,char *postdata);
+void POST(char *url, CURL *curl, CURLcode res, char *postdata);
 void PUT();
 void DELETE();
 
@@ -81,7 +82,7 @@ void Help()
 void GET(char *url, CURL *curl, CURLcode res) {
 	
 	curl = curl_easy_init();
-    
+
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, url);
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
@@ -95,3 +96,42 @@ void GET(char *url, CURL *curl, CURLcode res) {
 	}
 }
 
+
+void PUT(char *url, CURL *curl, CURLcode res, char *postdata) {
+	
+	curl = curl_easy_init();
+
+	if(curl) {
+		curl_easy_setopt(curl, CURLOPT_URL, url);
+		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
+		res = curl_easy_perform(curl);
+
+            if(res != CURLE_OK) {
+                fprintf(stderr, "Curl unable to HTTP PUT %s\n", 
+                curl_easy_strerror(res));
+            }
+		curl_easy_cleanup(curl);
+	}
+}
+
+
+void POST(char *url, CURL *curl, CURLcode res, char *postdata) {
+
+	curl = curl_easy_init();
+
+	if(curl) {
+		curl_easy_setopt(curl, CURLOPT_URL, url);
+		curl_easy_setopt(curl, CURLOPT_POST, 1L);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)strlen(postdata));
+		res = curl_easy_perform(curl);
+
+            if(res != CURLE_OK) {
+                fprintf(stderr, "[CURL] Could not execute HTTP POST: %s\n", 
+                curl_easy_strerror(res));
+            }
+        
+		curl_easy_cleanup(curl);
+	}
+}
