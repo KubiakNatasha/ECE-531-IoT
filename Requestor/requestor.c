@@ -15,29 +15,22 @@ void PUT(char *url, CURL *curl, CURLcode res ,char *postdata);
 void POST(char *url, CURL *curl, CURLcode res, char *postdata);
 void DELETE(char *url, CURL *curl, CURLcode res, char *postdata)
 
-int main(void) {
-  
-    CURL    *curl;
-    CURLcode res;
 
-    curl = curl_easy_init();
+int main() {
+	
+	CURL *curl;
+	CURLcode res;
 
-    // if(curl) {
-    //     curl_easy_setopt(curl, CURLOPT_URL, URL);
-    //     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-    //     res = curl_easy_perform(curl);
+    /* Handle bad arguments*/
+    if(argc <= 1) {
+			printf("Empty Argument:\n");
+			usage();
+			exit(-1);
+		}
 
-    //     if(res != CURLE_OK) {
-    //         return REQ_ERR;
-    //     }
-    //     curl_easy_cleanup(curl);
-    // }
-    else {
-        return INIT_ERR;
-    }
-
-    return OK;
-
+	
+	
+	return OK;
 }
 
 
@@ -89,7 +82,7 @@ void GET(char *url, CURL *curl, CURLcode res) {
 
             if(res != CURLE_OK) {
                 fprintf(stderr, "Curl unable to http GET %s\n", 
-                        curl_easy_strerror(res));
+                        curl_easy_strerror(res))        
             }
 		curl_easy_cleanup(curl);
 	}
