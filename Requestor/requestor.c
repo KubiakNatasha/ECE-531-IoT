@@ -6,6 +6,7 @@
 #define OK          0
 #define INIT_ERR    1
 #define REQ_ERR     2
+#define default		0
 
 #define URL         "http://localhost:8000"
 
@@ -23,35 +24,53 @@ int main(int argc, char **argv) {
 	CURLcode res;
 
     /* Handle bad arguments*/
+	/* If number if Arguments is less than 1*/
     if(argc <= 1) {
 			printf("Empty Argument.\n");
 			printd("Exiting...\n");
 			
 		}
-
+	/* If Arguments is greater than 6*/
 	if (argc >= 5) {
 		printf("Invalid or too many arguments.\n");
+		printf("Number of Arguments:%d\n",argc);
 		printd("Exiting...\n");
+		return INIT_ERR;
 	}
 
-	switch (argument)
+	struct argp_option options[] =
+	{
+		{"url", 'u', "URL", 0, "Set URL"},
+		{"put", 'p', "default", 0, "Put"},
+		{"post", 'o', "default", 0, "Post"},
+		{"get", 'g', "default", 0, "Get"},
+		{"delete", 'd', "default", 0, "Delete"}, 
+		{0}
+	};
+	
+	switch (argc)
 		{
 			case 'g':
+			case 'get':
 				GET();
 				break;
 			case 'p':
+			case 'put':
 				PUT();
 				break;
 			case 'o':
+			case 'post':
 				POST();
 				break;
 			case 'd':
+			case 'delete':
 				DELETE();
 				break;
 			case 'h':
+			case 'help':
 				Help();
 				break;
-			case 'e':
+
 			default:
 				printf("Invalid or Unkown Argument.\n"); 
 				printd("For HELP, please type in: ./hw -h , or ./hw --help\n"); 
