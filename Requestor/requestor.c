@@ -202,7 +202,7 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
     case 'g':
 	case 'get': 
     {
-      i = GET(url, curl,res); 
+      i = GET(); 
       printf ("GET = %d\n", i);
       break;
     }
