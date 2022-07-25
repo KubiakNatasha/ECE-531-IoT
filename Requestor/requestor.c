@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
 	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();
-	
+
 	struct argp_option options[] =
 	{
 		{"url", 'u',0, 0, "Set URL"},
@@ -35,6 +35,7 @@ int main(int argc, char **argv) {
 		{"post", 'o',0, 0, "Post"},
 		{"get", 'g',0, 0, "Get"},
 		{"delete", 'd',0, 0, "Delete"}, 
+		{"help", 'h',0, 0, "Help"}
 		{0}
 	};
 
