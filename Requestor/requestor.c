@@ -21,7 +21,7 @@ void PUT(char *url, CURL *curl, CURLcode res ,char *postdata);
 void POST(char *url, CURL *curl, CURLcode res, char *postdata);
 void DELETE(char *url, CURL *curl, CURLcode res, char *postdata);
 static int parse_opt (int key, char *arg, struct argp_state *state);
-char newURL[];
+char newURL[100];
 
 int main(int argc, char **argv) {
 	
