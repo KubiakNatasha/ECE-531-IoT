@@ -23,8 +23,38 @@ int main(int argc, char **argv) {
 
     /* Handle bad arguments*/
     if(argc <= 1) {
-			printf("Empty Argument:\n");
+			printf("Empty Argument.\n");
+			printd("Exiting...\n");
 			
+		}
+
+	if (argc >= 5) {
+		printf("Invalid or too many arguments.\n");
+		printd("Exiting...\n");
+	}
+
+	switch (argument)
+		{
+			case 'g':
+				GET();
+				break;
+			case 'p':
+				PUT();
+				break;
+			case 'o':
+				POST();
+				break;
+			case 'd':
+				DELETE();
+				break;
+			case 'h':
+				Help();
+				break;
+			case 'e':
+			default:
+				printf("Invalid or Unkown Argument.\n"); 
+				printd("For HELP, please type in: ./hw -h , or ./hw --help\n"); 
+				return INIT_ERR;
 		}
 
 	return OK;
