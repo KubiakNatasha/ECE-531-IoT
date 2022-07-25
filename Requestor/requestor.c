@@ -10,7 +10,7 @@
 #define REQ_ERR     2
 #define default		0
 /* Host OS, Virtual Box*/
-#define URL         "www.cnn.com" 
+#define URL         "https://example.com" 
 
 
 /*********PROTOTYPE**************/
