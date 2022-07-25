@@ -207,6 +207,7 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
     case 'p':
 	case 'put': 
       printf("PUT\n");
+	  break;
 
 	/*DELETE*/
     case 'd':
