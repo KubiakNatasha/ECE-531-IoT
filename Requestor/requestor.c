@@ -15,10 +15,11 @@
 
 /*********PROTOTYPE**************/
 void HELP();
-void GET(char *url, CURL *curl, CURLcode res);
+void GET();
 void PUT(char *url, CURL *curl, CURLcode res ,char *postdata);
 void POST(char *url, CURL *curl, CURLcode res, char *postdata);
 void DELETE(char *url, CURL *curl, CURLcode res, char *postdata);
+static int parse_opt (int key, char *arg, struct argp_state *state)
 
 
 int main(int argc, char **argv) {
@@ -31,7 +32,7 @@ int main(int argc, char **argv) {
 	/* If number if Arguments is less than 1*/
     if(argc <= 1) {
 			printf("Empty Argument.\n");
-			printd("Exiting...\n");
+			printf("Exiting...\n");
 			return INIT_ERR;
 			
 		}
@@ -99,10 +100,11 @@ void HELP()
 void GET() {
 
 	CURL      *curl;
+	CURLcode res;
 	curl = curl_easy_init();
 
 	if(curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, url);
+		curl_easy_setopt(curl, CURLOPT_URL, URL);
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
 		res = curl_easy_perform(curl);
 
