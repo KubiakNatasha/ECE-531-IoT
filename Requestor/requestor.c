@@ -194,3 +194,13 @@ void DELETE(char *url, CURL *curl, CURLcode res, char *postdata) {
 	}
 }
 
+/**************************************/
+/* PARSE OPT */
+/*************************************/
+static int parse_opt (int key, char *arg, struct argp_state *state)
+{
+ switch (key)
+ {
+ case 'd': printf (".\n"); break;
+ }
+ re
