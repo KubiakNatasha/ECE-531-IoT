@@ -11,6 +11,7 @@
 #define default		0
 /*DEFAULT URL*/
 #define URL         "https://example.com" 
+char newURL[25];	
 
 
 /*********PROTOTYPE**************/
@@ -27,7 +28,6 @@ int main(int argc, char **argv) {
 	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();
-	char newURL[25];	
 
 	struct argp_option options[] =
 	{
