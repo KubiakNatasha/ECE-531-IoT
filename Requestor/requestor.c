@@ -19,7 +19,7 @@ void GET();
 void PUT(char *url, CURL *curl, CURLcode res ,char *postdata);
 void POST(char *url, CURL *curl, CURLcode res, char *postdata);
 void DELETE(char *url, CURL *curl, CURLcode res, char *postdata);
-static int parse_opt (int key, char *arg, struct argp_state *state)
+static int parse_opt (int key, char *arg, struct argp_state *state);
 
 
 int main(int argc, char **argv) {
@@ -189,10 +189,8 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
     case 'u':
 	case 'url':
 	case 'URL':
-    {
       printf("Set URL\n");
       break;
-    }
 
 	/*POST*/
     case 'o':
@@ -203,26 +201,20 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
 	/*GET*/
     case 'g':
 	case 'get': 
-    {
       i = GET(); 
       printf ("GET = %d\n", i);
       break;
-    }
 
 	/*PUT*/
     case 'p':
 	case 'put': 
-    {
       printf("PUT\n");
-    }
 
 	/*DELETE*/
     case 'd':
 	case 'delete':
-    {
       printf("Delete\n");
       break;
-    }
 
 	case 'h':
 	case 'help':
