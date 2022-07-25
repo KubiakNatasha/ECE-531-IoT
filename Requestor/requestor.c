@@ -11,7 +11,7 @@
 #define default		0
 /*DEFAULT URL*/
 #define URL         "https://example.com" 
-char newURL[25];	
+
 
 
 /*********PROTOTYPE**************/
@@ -21,7 +21,7 @@ void PUT(char *url, CURL *curl, CURLcode res ,char *postdata);
 void POST(char *url, CURL *curl, CURLcode res, char *postdata);
 void DELETE(char *url, CURL *curl, CURLcode res, char *postdata);
 static int parse_opt (int key, char *arg, struct argp_state *state);
-
+char newURL[];
 
 int main(int argc, char **argv) {
 	
