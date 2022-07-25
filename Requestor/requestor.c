@@ -169,7 +169,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	/*GET*/
     case 'g':
 	  printf("Get\n");
-      //GET(); 
+      GET(); 
       break;
 
 	/*PUT*/
@@ -209,7 +209,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
 		printf("2 REQ_ERR\n");
 		printf("-------------------------\n\n");
 		printf("To display help again:");
-		printf("hw -h --help");
+		printf("hw -h --help\n");
 		break;
 
 	// default:
