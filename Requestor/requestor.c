@@ -9,7 +9,7 @@
 #define INIT_ERR    1
 #define REQ_ERR     2
 #define default		0
-/* Host OS, Virtual Box*/
+/*DEFAULT URL*/
 #define URL         "https://example.com" 
 
 
@@ -27,6 +27,7 @@ int main(int argc, char **argv) {
 	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();
+	char newURL[25];	
 
 	struct argp_option options[] =
 	{
@@ -48,7 +49,7 @@ int main(int argc, char **argv) {
 			
 		}
 	/* If Arguments is greater than 6*/
-	if (argc >= 5) {
+	if (argc >= 6) {
 		printf("Invalid or too many arguments.\n");
 		printf("Number of Arguments:%d\n",argc);
 		printf("Exiting...\n");
@@ -158,7 +159,11 @@ parse_opt (int key, char *arg, struct argp_state *state)
   {
 	/* URL */
     case 'u':
-      printf("Set URL\n");
+      printf("The Default URL is set to:%s\n", URL);
+	  printf("New URL has been set...\n");
+	  strcpy(usrURL, arg);
+	  printf("\tNew URL = %s\n", newURL);
+	
       break;
 
 	/*POST*/
