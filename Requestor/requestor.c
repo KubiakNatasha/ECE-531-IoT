@@ -10,7 +10,7 @@
 #define REQ_ERR     2
 #define default		0
 /* Host OS, Virtual Box*/
-#define URL         "http://10.0.2.15:8000" 
+#define URL         "www.cnn.com" 
 
 
 /*********PROTOTYPE**************/
@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
 
 void GET() {
 
-	CURL      *curl;
+	CURL    *curl;
 	CURLcode res;
 	curl = curl_easy_init();
 
