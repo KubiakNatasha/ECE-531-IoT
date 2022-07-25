@@ -243,14 +243,12 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
 		printf("-------------------------\n\n");
 		printf("To display help again:");
 		printf("hw -h --help");
-
 		break;
 
-
-	default:
-		printf("Invalid or Unkown Argument.\n"); 
-		printf("For HELP enter: ./hw -h , or ./hw --help\n"); 
-		return INIT_ERR;
+	// default:
+	// 	printf("Invalid or Unkown Argument.\n"); 
+	// 	printf("For HELP enter: ./hw -h , or ./hw --help\n"); 
+	// 	break;
   }
   return 0;
 }
