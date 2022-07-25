@@ -185,38 +185,38 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
   {
 	/* URL */
     case 'u':
-	case 'url':
-	case 'URL':
+	// case 'url':
+	// case 'URL':
       printf("Set URL\n");
       break;
 
 	/*POST*/
     case 'o':
-	case 'post':
+	// case 'post':
       printf("Post\n");
 	  break;
 
 	/*GET*/
     case 'g':
-	case 'get': 
+	// case 'get': 
 	  printf("Get\n");
       GET(); 
       break;
 
 	/*PUT*/
     case 'p':
-	case 'put': 
+	// case 'put': 
       printf("PUT\n");
 	  break;
 
 	/*DELETE*/
     case 'd':
-	case 'delete':
+	// case 'delete':
       printf("Delete\n");
       break;
 
 	case 'h':
-	case 'help':
+	// case 'help':
 		printf("REQUESTOR HELP:\n");
 		printf("-------------------------\n\n");
 		printf("Options:\n");
