@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <curl/curl.h>
 #include <string.h>
+#include <argp.h>
 
 #define OK          0
 #define INIT_ERR    1
@@ -173,3 +174,4 @@ void DELETE(char *url, CURL *curl, CURLcode res, char *postdata) {
 		curl_easy_cleanup(curl);
 	}
 }
+
