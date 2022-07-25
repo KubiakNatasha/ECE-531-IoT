@@ -159,10 +159,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
   {
 	/* URL */
     case 'u':
-      printf("The Default URL is set to:%s\n", URL);
-	  printf("New URL has been set...\n");
+      printf("The Default URL is set to:	%s\n", URL);
+	  printf("New URL has been set.\n");
 	  strcpy(newURL, arg);
-	  printf("\tNew URL = %s\n", newURL);
+	  printf("New URL = %s\n", newURL);
 	
       break;
 
