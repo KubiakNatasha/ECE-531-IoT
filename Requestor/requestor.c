@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
 		{"post", 'o',0, 0, "Post"},
 		{"get", 'g',0, 0, "Get"},
 		{"delete", 'd',0, 0, "Delete"}, 
-		{"help", 'h',0, 0, "Help"}
+		{"help", 'h',0, 0, "Help"},
 		{0}
 	};
 
