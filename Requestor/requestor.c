@@ -27,6 +27,16 @@ int main(int argc, char **argv) {
 	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();
+	
+	struct argp_option options[] =
+	{
+		{"url", 'u',0, 0, "Set URL"},
+		{"put", 'p',0, 0, "Put"},
+		{"post", 'o',0, 0, "Post"},
+		{"get", 'g',0, 0, "Get"},
+		{"delete", 'd',0, 0, "Delete"}, 
+		{0}
+	};
 
     /* Handle bad arguments*/
 	/* If number if Arguments is less than 1*/
@@ -44,52 +54,13 @@ int main(int argc, char **argv) {
 		return INIT_ERR;
 	}
 
-	struct argp_option options[] =
-	{
-		{"url", 'u', "URL", 0, "Set URL"},
-		{"put", 'p', "default", 0, "Put"},
-		{"post", 'o', "default", 0, "Post"},
-		{"get", 'g', "default", 0, "Get"},
-		{"delete", 'd', "default", 0, "Delete"}, 
-		{0}
-	};
+	
 	
 	struct argp argp = { options, parse_opt };
 	return argp_parse (&argp, argc, argv, 0, 0, 0);
 	return OK;
 }
 
-
-void HELP()
-{
-	printf("REQUESTOR HELP:\n");
-    printf("-------------------------\n\n");
-    printf("Options:\n");
-	printf("HTTP REQUESTS:\n");
-	printf("  -g  --get    GET      \n");
-	printf("  -o  --post   POST     \n");
-	printf("  -p  --put    PUT      \n");
-	printf("  -d  --delete DELETE   \n");
-    printf(" HTTP REQUESTS should be followed with a valid URL\n");
-    printf(" -u   --url    URL \n");
-    printf("-------------------------\n\n");
-    printf("COMMAND LINE INPUT FORMAT\n");
-    printf("hw [REQUEST] --url [URL]\n");
-    printf("EXAMPLES\n");
-    printf("hw --post --url http://localhost:8080 \n");
-    printf("hw --get --url http://www.cnn.com\n");
-    printf("hw --put --url http://localhost:8080\n");
-    printf("hw --delete --url http://localhost:8080 78392\n");
-    printf("-------------------------\n\n");
-    printf("Exit definitions:\n");
-    printf("0 OK\n");
-    printf("1 INIT_ERR\n");
-    printf("2 REQ_ERR\n");
-    printf("-------------------------\n\n");
-    printf("To display help again:");
-    printf("hw -h --help");
-
-}
 
 
 /***************************************/
@@ -178,40 +149,35 @@ void DELETE(char *url, CURL *curl, CURLcode res, char *postdata) {
 /**************************************/
 /* PARSE OPT */
 /*************************************/
-static int parse_opt (int key, char *arg, struct argp_state *state)
+static int 
+parse_opt (int key, char *arg, struct argp_state *state)
 {
 
   switch (key)
   {
 	/* URL */
     case 'u':
-	// case 'url':
-	// case 'URL':
       printf("Set URL\n");
       break;
 
 	/*POST*/
     case 'o':
-	// case 'post':
       printf("Post\n");
 	  break;
 
 	/*GET*/
     case 'g':
-	// case 'get': 
 	  printf("Get\n");
-      GET(); 
+      //GET(); 
       break;
 
 	/*PUT*/
     case 'p':
-	// case 'put': 
       printf("PUT\n");
 	  break;
 
 	/*DELETE*/
     case 'd':
-	// case 'delete':
       printf("Delete\n");
       break;
 
