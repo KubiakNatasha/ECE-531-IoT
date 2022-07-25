@@ -180,8 +180,6 @@ void DELETE(char *url, CURL *curl, CURLcode res, char *postdata) {
 /*************************************/
 static int parse_opt (int key, char *arg, struct argp_state *state)
 {
-	int i;
-	
 
   switch (key)
   {
@@ -201,7 +199,7 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
 	/*GET*/
     case 'g':
 	case 'get': 
-      i = GET(); 
+      GET(); 
       printf ("GET = %d\n", i);
       break;
 
