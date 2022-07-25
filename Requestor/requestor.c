@@ -25,6 +25,7 @@ int main(int argc, char **argv) {
 	
 	CURL *curl;
 	CURLcode res;
+	curl = curl_easy_init();
 
     /* Handle bad arguments*/
 	/* If number if Arguments is less than 1*/
@@ -38,7 +39,7 @@ int main(int argc, char **argv) {
 	if (argc >= 5) {
 		printf("Invalid or too many arguments.\n");
 		printf("Number of Arguments:%d\n",argc);
-		printd("Exiting...\n");
+		printf("Exiting...\n");
 		return INIT_ERR;
 	}
 
@@ -95,8 +96,9 @@ void HELP()
 
 /***************************************/
 
-void GET(char *url, CURL *curl, CURLcode res) {
-	
+void GET() {
+
+	CURL      *curl;
 	curl = curl_easy_init();
 
 	if(curl) {
@@ -200,7 +202,7 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
     case 'g':
 	case 'get': 
     {
-      i = GET(); 
+      i = GET(url, curl,res); 
       printf ("GET = %d\n", i);
       break;
     }
@@ -214,7 +216,7 @@ static int parse_opt (int key, char *arg, struct argp_state *state)
 
 	/*DELETE*/
     case 'd':
-	case 'delete': .
+	case 'delete':
     {
       printf("Delete\n");
       break;
