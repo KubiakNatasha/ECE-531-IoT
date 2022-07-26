@@ -1,8 +1,13 @@
+/*Natasha Kubiak		*/
+/*ECE 531-SUMMER 2022	*/
+/*Information on argp.h used from tutorial : http://nongnu.askapache.com/argpbook/step-by-step-into-argp.pdf */
+/*HTTP Requests using libcurl:  https://curl.se/libcurl/c/http-post.html */
+
 #include <stdio.h>
 #include <curl/curl.h>
 #include <string.h>
 #include <argp.h>
-/*** Information on argp.h used from tutorial : http://nongnu.askapache.com/argpbook/step-by-step-into-argp.pdf ***/
+
 
 
 #define OK          0
