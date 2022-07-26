@@ -17,8 +17,8 @@
 /*********PROTOTYPE**************/
 void HELP();
 void GET();
-void PUT(char *url, CURL *curl, CURLcode res ,char *postdata);
-void POST(char *url, CURL *curl, CURLcode res, char *postdata);
+void PUT(char *postdata);
+void POST(char *postdata);
 void DELETE(char *postdata);
 static int parse_opt (int key, char *arg, struct argp_state *state);
 char newURL[20];
@@ -90,12 +90,15 @@ void GET() {
 }
 
 
-void PUT(char *url, CURL *curl, CURLcode res, char *postdata) {
-	
+void PUT(char *postdata) {
+
+	CURL *curl;
+	CURLcode res;
 	curl = curl_easy_init();
+	
 
 	if(curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, url);
+		curl_easy_setopt(curl, CURLOPT_URL, URL);
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, *postdata); 
 		res = curl_easy_perform(curl);
@@ -109,12 +112,14 @@ void PUT(char *url, CURL *curl, CURLcode res, char *postdata) {
 }
 
 
-void POST(char *url, CURL *curl, CURLcode res, char *postdata) {
-
+void POST (char *postdata) {
+	CURL *curl;
+	CURLcode res;
 	curl = curl_easy_init();
 
+
 	if(curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, url);
+		curl_easy_setopt(curl, CURLOPT_URL, URL);
 		curl_easy_setopt(curl, CURLOPT_POST, 1L);
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)strlen(postdata));
@@ -216,13 +221,11 @@ parse_opt (int key, char *arg, struct argp_state *state)
 		printf("1 INIT_ERR\n");
 		printf("2 REQ_ERR\n");
 		printf("-------------------------\n\n");
-		printf("To display help again,	./hw -h");
+		printf("To display help again,	./hw -h\n");
 		break;
 
 	default:
 		printf("Invalid or Unkown Argument.\n"); 
-		printf("For HELP enter,	 ./hw -h\n"); 
-		break;
   }
   return 0;
 }
