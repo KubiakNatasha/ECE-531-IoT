@@ -16,7 +16,7 @@
 
 /*********PROTOTYPE**************/
 void HELP();
-void GET();
+void GET(char *postdata);
 void PUT(char *postdata);
 void POST(char *postdata);
 void DELETE(char *postdata);
@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
 
 /***************************************/
 
-void GET() {
+void GET(*postdata) {
 
 	CURL    *curl;
 	CURLcode res;
@@ -113,6 +113,7 @@ void PUT(char *postdata) {
 
 
 void POST (char *postdata) {
+
 	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();
@@ -175,6 +176,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	/*POST*/
     case 'o':
       printf("POST\n");
+	  POST(arg);
 	  break;
 
 	/*GET*/
