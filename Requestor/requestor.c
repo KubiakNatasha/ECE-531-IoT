@@ -20,10 +20,10 @@
 
 /*********PROTOTYPE**************/
 void HELP();
-void GET(char *postdata);
-void PUT(char *postdata);
-void POST(char *postdata);
-void DELETE(char *postdata);
+void GET(CURL *curl, char *postdata);
+void PUT(CURL *curl, char *postdata);
+void POST(CURL *curl, char *postdata);
+void DELETE(CURL *curl, char *postdata);
 static int parse_opt (int key, char *arg, struct argp_state *state);
 char newURL[20];
 
@@ -76,11 +76,11 @@ int main(int argc, char **argv) {
 
 /***************************************/
 
-void GET(char *postdata) {
+void GET(CURL *curl, char *postdata) {
 	/*GET method means retrieve whatever information 
 	(in the form of an entity) is identified by the Request-URI.*/
 
-	CURL    *curl;
+	
 	CURLcode res;
 	curl = curl_easy_init();
 
@@ -98,11 +98,10 @@ void GET(char *postdata) {
 }
 
 
-void PUT(char *postdata) {
+void PUT(CURL *curl, char *postdata) {
 	/* UT method requests that the enclosed entity
 	 be stored under the supplied Request-URI.  */
 
-	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();
 	
@@ -122,13 +121,12 @@ void PUT(char *postdata) {
 }
 
 
-void POST (char *postdata) {
+void POST (CURL *curl, char *postdata) {
 	/* POST method is used to request that the origin server
 	 accept the entity enclosed in the request as a new 
 	 subordinate of the resource identified by the Request-URI
 	  in the Request-Line.*/
 
-	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();
 
@@ -150,11 +148,10 @@ void POST (char *postdata) {
 }
 
 
-void DELETE(char *postdata) {
+void DELETE(CURL *curl, char *postdata) {
 	/* DELETE method requests that the origin server
 	 delete the resource identified by the Request-URI.*/ 
 	
-	CURL    *curl;
 	CURLcode res;
 	curl = curl_easy_init();
 
@@ -181,6 +178,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	/* Get the input argument from argp_parse, which we
      know is a pointer to our arguments structure. */
 	struct arguments *a = state->input;
+	CURL    *curl;
 
   switch (key)
   {
@@ -192,25 +190,25 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	/*POST*/
     case 'o':
       printf("POST\n");
-	  POST(arg);
+	  POST(curl, arg);
 	  break;
 
 	/*GET*/
     case 'g':
 	  printf("GET\n");
-      GET(arg); 
+      GET(curl, arg); 
       break;
 
 	/*PUT*/
     case 'p':
       printf("PUT\n");
-	  PUT(arg);
+	  PUT(curl, arg);
 	  break;
 
 	/*DELETE*/
     case 'd':
       printf("DELETE\n");
-      DELETE(arg);
+      DELETE(curl, arg);
       break;
 
 	/*HELP*/
