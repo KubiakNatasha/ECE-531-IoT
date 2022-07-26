@@ -83,7 +83,7 @@ void GET(CURL *curl, char *postdata) {
 	
 	CURLcode res;
 	curl = curl_easy_init();
-	int httpStatus = 0
+	int httpStatus = 0;
 
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, URL);
@@ -107,7 +107,7 @@ void PUT(CURL *curl, char *postdata) {
 
 	CURLcode res;
 	curl = curl_easy_init();
-	int httpStatus = 0
+	int httpStatus = 0;
 	
 
 	if(curl) {
@@ -135,7 +135,7 @@ void POST (CURL *curl, char *postdata) {
 
 	CURLcode res;
 	curl = curl_easy_init();
-	int httpStatus = 0
+	int httpStatus = 0;
 
 
 	if(curl) {
@@ -162,7 +162,7 @@ void DELETE(CURL *curl, char *postdata) {
 	
 	CURLcode res;
 	curl = curl_easy_init();
-	int httpStatus = 0
+	int httpStatus = 0;
 
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, URL);
