@@ -1,8 +1,13 @@
+/*Natasha Kubiak		*/
+/*ECE 531-SUMMER 2022	*/
+/*Information on argp.h used from tutorial : http://nongnu.askapache.com/argpbook/step-by-step-into-argp.pdf */
+/*HTTP Requests using libcurl:  https://curl.se/libcurl/c/http-post.html */
+
 #include <stdio.h>
 #include <curl/curl.h>
 #include <string.h>
 #include <argp.h>
-/*** Information on argp.h used from tutorial : http://nongnu.askapache.com/argpbook/step-by-step-into-argp.pdf ***/
+
 
 
 #define OK          0
@@ -15,12 +20,12 @@
 
 /*********PROTOTYPE**************/
 void HELP();
-void GET(char *postdata);
-void PUT(char *postdata);
-void POST(char *postdata);
-void DELETE(char *postdata);
+void GET(CURL *curl, char *postdata);
+void PUT(CURL *curl, char *postdata);
+void POST(CURL *curl, char *postdata);
+void DELETE(CURL *curl, char *postdata);
 static int parse_opt (int key, char *arg, struct argp_state *state);
-char newURL[20];
+char newURL[50];
 
 /*********MAIN*******************/
 
@@ -66,16 +71,15 @@ int main(int argc, char **argv) {
 
 
 
-/***************************************/
-/* curl_easy_setopt is used to tell libcurl how to behave.
 
-/***************************************/
+void GET(CURL *curl, char *postdata) {
+	/*GET method means retrieve whatever information 
+	(in the form of an entity) is identified by the Request-URI.*/
 
-void GET(char *postdata) {
-
-	CURL    *curl;
+	
 	CURLcode res;
 	curl = curl_easy_init();
+	int httpStatus = 0;
 
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, URL);
@@ -86,16 +90,23 @@ void GET(char *postdata) {
                 fprintf(stderr, "Curl unable to http GET %s\n", 
                         curl_easy_strerror(res));       
             }
+				else if(res == CURLE_OK) {
+				long response_code;
+				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
+			}
 		curl_easy_cleanup(curl);
 	}
 }
 
 
-void PUT(char *postdata) {
+void PUT(CURL *curl, char *postdata) {
+	/* UT method requests that the enclosed entity
+	 be stored under the supplied Request-URI.  */
 
-	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();
+	int httpStatus = 0;
 	
 
 	if(curl) {
@@ -108,16 +119,26 @@ void PUT(char *postdata) {
                 fprintf(stderr, "Curl unable to HTTP PUT %s\n", 
                 curl_easy_strerror(res));
             }
+				else if(res == CURLE_OK) {
+				long response_code;
+				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
+			}
+
 		curl_easy_cleanup(curl);
 	}
 }
 
 
-void POST (char *postdata) {
+void POST (CURL *curl, char *postdata) {
+	/* POST method is used to request that the origin server
+	 accept the entity enclosed in the request as a new 
+	 subordinate of the resource identified by the Request-URI
+	  in the Request-Line.*/
 
-	CURL *curl;
 	CURLcode res;
 	curl = curl_easy_init();
+	int httpStatus = 0;
 
 
 	if(curl) {
@@ -131,17 +152,24 @@ void POST (char *postdata) {
                 fprintf(stderr, "Curl unable to HTTP POST %s\n", 
                 curl_easy_strerror(res));
             }
-        
+				else if(res == CURLE_OK) {
+				long response_code;
+				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
+			}
+
 		curl_easy_cleanup(curl);
 	}
 }
 
 
-void DELETE(char *postdata) {
+void DELETE(CURL *curl, char *postdata) {
+	/* DELETE method requests that the origin server
+	 delete the resource identified by the Request-URI.*/ 
 	
-	CURL    *curl;
 	CURLcode res;
 	curl = curl_easy_init();
+	int httpStatus = 0;
 
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, URL);
@@ -153,6 +181,12 @@ void DELETE(char *postdata) {
                 fprintf(stderr, "Curl unable to HTTP DELETE %s\n", 
                 curl_easy_strerror(res));
             }
+				else if(res == CURLE_OK) {
+				long response_code;
+				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
+			}
+
 		curl_easy_cleanup(curl);
 	}
 }
@@ -166,6 +200,8 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	/* Get the input argument from argp_parse, which we
      know is a pointer to our arguments structure. */
 	struct arguments *a = state->input;
+	CURL *curl;
+	
 
   switch (key)
   {
@@ -177,25 +213,25 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	/*POST*/
     case 'o':
       printf("POST\n");
-	  POST(arg);
+	  POST(curl, arg);
 	  break;
 
 	/*GET*/
     case 'g':
 	  printf("GET\n");
-      GET(arg); 
+      GET(curl, arg); 
       break;
 
 	/*PUT*/
     case 'p':
       printf("PUT\n");
-	  PUT(arg);
+	  PUT(curl, arg);
 	  break;
 
 	/*DELETE*/
     case 'd':
       printf("DELETE\n");
-      DELETE(arg);
+      DELETE(curl, arg);
       break;
 
 	/*HELP*/
