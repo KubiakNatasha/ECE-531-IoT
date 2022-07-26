@@ -21,7 +21,7 @@ void PUT(char *url, CURL *curl, CURLcode res ,char *postdata);
 void POST(char *url, CURL *curl, CURLcode res, char *postdata);
 void DELETE(char *postdata);
 static int parse_opt (int key, char *arg, struct argp_state *state);
-char newURL;
+char newURL[20];
 
 int main(int argc, char **argv) {
 	
@@ -97,7 +97,7 @@ void PUT(char *url, CURL *curl, CURLcode res, char *postdata) {
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, url);
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, *postdata); 
 		res = curl_easy_perform(curl);
 
             if(res != CURLE_OK) {
@@ -139,7 +139,7 @@ void DELETE(char *postdata) {
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, URL);
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, *postdata);
 		res = curl_easy_perform(curl);
 
             if(res != CURLE_OK) {
