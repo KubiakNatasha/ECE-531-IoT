@@ -95,7 +95,7 @@ void GET(CURL *curl, char *postdata) {
                         curl_easy_strerror(res));       
             }
 		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpStatus);
-		printf("\nHTTP CODE STATUS: %ld\n", httpStatus);
+		printf("\nHTTP CODE STATUS: %d\n", httpStatus);
 		curl_easy_cleanup(curl);
 	}
 }
@@ -121,7 +121,7 @@ void PUT(CURL *curl, char *postdata) {
                 curl_easy_strerror(res));
             }
 		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpStatus);
-		printf("\nHTTP CODE STATUS: %ld\n", httpStatus);
+		printf("\nHTTP CODE STATUS: %d\n", httpStatus);
 		curl_easy_cleanup(curl);
 	}
 }
@@ -150,7 +150,7 @@ void POST (CURL *curl, char *postdata) {
                 curl_easy_strerror(res));
             }
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpStatus);
-		printf("\nHTTP CODE STATUS: %ld\n", httpStatus);
+		printf("\nHTTP CODE STATUS: %d\n", httpStatus);
 		curl_easy_cleanup(curl);
 	}
 }
@@ -175,7 +175,7 @@ void DELETE(CURL *curl, char *postdata) {
                 curl_easy_strerror(res));
             }
 		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpStatus);
-		printf("\nHTTP CODE STATUS: %ld\n", httpStatus);
+		printf("\nHTTP CODE STATUS: %d\n", httpStatus);
 		curl_easy_cleanup(curl);
 	}
 }
