@@ -72,6 +72,8 @@ int main(int argc, char **argv) {
 /***************************************/
 
 void GET(char *postdata) {
+	/*GET method means retrieve whatever information 
+	(in the form of an entity) is identified by the Request-URI.*/
 
 	CURL    *curl;
 	CURLcode res;
@@ -92,6 +94,8 @@ void GET(char *postdata) {
 
 
 void PUT(char *postdata) {
+	/* UT method requests that the enclosed entity
+	 be stored under the supplied Request-URI.  */
 
 	CURL *curl;
 	CURLcode res;
@@ -114,6 +118,10 @@ void PUT(char *postdata) {
 
 
 void POST (char *postdata) {
+	/* POST method is used to request that the origin server
+	 accept the entity enclosed in the request as a new 
+	 subordinate of the resource identified by the Request-URI
+	  in the Request-Line.*/
 
 	CURL *curl;
 	CURLcode res;
@@ -138,6 +146,8 @@ void POST (char *postdata) {
 
 
 void DELETE(char *postdata) {
+	/* DELETE method requests that the origin server
+	 delete the resource identified by the Request-URI.*/ 
 	
 	CURL    *curl;
 	CURLcode res;
