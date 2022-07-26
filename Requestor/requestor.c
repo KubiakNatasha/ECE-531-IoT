@@ -195,8 +195,8 @@ parse_opt (int key, char *arg, struct argp_state *state)
       DELETE(arg);
       break;
 
+	/*HELP*/
 	case 'h':
-	// case 'help':
 		printf("REQUESTOR HELP:\n");
 		printf("-------------------------\n\n");
 		printf("Options:\n");
@@ -224,8 +224,8 @@ parse_opt (int key, char *arg, struct argp_state *state)
 		printf("To display help again,	./hw -h\n");
 		break;
 
-	default:
-		printf("Invalid or Unkown Argument.\n"); 
+	// default:
+	// 	printf("Invalid or Unkown Argument.\n"); 
   }
   return 0;
 }
