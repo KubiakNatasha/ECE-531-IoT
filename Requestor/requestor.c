@@ -94,7 +94,7 @@ void GET(CURL *curl, char *postdata) {
                 fprintf(stderr, "Curl unable to http GET %s\n", 
                         curl_easy_strerror(res));       
             }
-				else(res == CURLE_OK) {
+				else if(res == CURLE_OK) {
 				long response_code;
 				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
 				printf("[HTTP CODE]: %ld\n", response_code);
@@ -123,7 +123,7 @@ void PUT(CURL *curl, char *postdata) {
                 fprintf(stderr, "Curl unable to HTTP PUT %s\n", 
                 curl_easy_strerror(res));
             }
-				else(res == CURLE_OK) {
+				else if(res == CURLE_OK) {
 				long response_code;
 				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
 				printf("[HTTP CODE]: %ld\n", response_code);
@@ -156,7 +156,7 @@ void POST (CURL *curl, char *postdata) {
                 fprintf(stderr, "Curl unable to HTTP POST %s\n", 
                 curl_easy_strerror(res));
             }
-				else(res == CURLE_OK) {
+				else if(res == CURLE_OK) {
 				long response_code;
 				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
 				printf("[HTTP CODE]: %ld\n", response_code);
@@ -185,7 +185,7 @@ void DELETE(CURL *curl, char *postdata) {
                 fprintf(stderr, "Curl unable to HTTP DELETE %s\n", 
                 curl_easy_strerror(res));
             }
-				else(res == CURLE_OK) {
+				else if(res == CURLE_OK) {
 				long response_code;
 				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
 				printf("[HTTP CODE]: %ld\n", response_code);
