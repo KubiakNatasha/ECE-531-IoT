@@ -25,7 +25,7 @@ void PUT(CURL *curl, char *postdata);
 void POST(CURL *curl, char *postdata);
 void DELETE(CURL *curl, char *postdata);
 static int parse_opt (int key, char *arg, struct argp_state *state);
-char newURL[20];
+char newURL[50];
 
 /*********MAIN*******************/
 
@@ -71,10 +71,6 @@ int main(int argc, char **argv) {
 
 
 
-/***************************************/
-/* curl_easy_setopt is used to tell libcurl how to behave.
-
-/***************************************/
 
 void GET(CURL *curl, char *postdata) {
 	/*GET method means retrieve whatever information 
@@ -97,7 +93,7 @@ void GET(CURL *curl, char *postdata) {
 				else if(res == CURLE_OK) {
 				long response_code;
 				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
-				printf("[HTTP CODE]: %ld\n", response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
 			}
 		curl_easy_cleanup(curl);
 	}
@@ -126,7 +122,7 @@ void PUT(CURL *curl, char *postdata) {
 				else if(res == CURLE_OK) {
 				long response_code;
 				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
-				printf("[HTTP CODE]: %ld\n", response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
 			}
 
 		curl_easy_cleanup(curl);
@@ -159,7 +155,7 @@ void POST (CURL *curl, char *postdata) {
 				else if(res == CURLE_OK) {
 				long response_code;
 				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
-				printf("[HTTP CODE]: %ld\n", response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
 			}
 
 		curl_easy_cleanup(curl);
@@ -188,7 +184,7 @@ void DELETE(CURL *curl, char *postdata) {
 				else if(res == CURLE_OK) {
 				long response_code;
 				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
-				printf("[HTTP CODE]: %ld\n", response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
 			}
 
 		curl_easy_cleanup(curl);
