@@ -83,6 +83,7 @@ void GET(CURL *curl, char *postdata) {
 	
 	CURLcode res;
 	curl = curl_easy_init();
+	int httpStatus = 0
 
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, URL);
@@ -93,6 +94,8 @@ void GET(CURL *curl, char *postdata) {
                 fprintf(stderr, "Curl unable to http GET %s\n", 
                         curl_easy_strerror(res));       
             }
+		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpStatus);
+		printf("\nHTTP CODE STATUS: %ld\n", httpStatus);
 		curl_easy_cleanup(curl);
 	}
 }
@@ -104,6 +107,7 @@ void PUT(CURL *curl, char *postdata) {
 
 	CURLcode res;
 	curl = curl_easy_init();
+	int httpStatus = 0
 	
 
 	if(curl) {
@@ -116,6 +120,8 @@ void PUT(CURL *curl, char *postdata) {
                 fprintf(stderr, "Curl unable to HTTP PUT %s\n", 
                 curl_easy_strerror(res));
             }
+		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpStatus);
+		printf("\nHTTP CODE STATUS: %ld\n", httpStatus);
 		curl_easy_cleanup(curl);
 	}
 }
@@ -129,6 +135,7 @@ void POST (CURL *curl, char *postdata) {
 
 	CURLcode res;
 	curl = curl_easy_init();
+	int httpStatus = 0
 
 
 	if(curl) {
@@ -142,7 +149,8 @@ void POST (CURL *curl, char *postdata) {
                 fprintf(stderr, "Curl unable to HTTP POST %s\n", 
                 curl_easy_strerror(res));
             }
-        
+        curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpStatus);
+		printf("\nHTTP CODE STATUS: %ld\n", httpStatus);
 		curl_easy_cleanup(curl);
 	}
 }
@@ -154,6 +162,7 @@ void DELETE(CURL *curl, char *postdata) {
 	
 	CURLcode res;
 	curl = curl_easy_init();
+	int httpStatus = 0
 
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, URL);
@@ -165,6 +174,8 @@ void DELETE(CURL *curl, char *postdata) {
                 fprintf(stderr, "Curl unable to HTTP DELETE %s\n", 
                 curl_easy_strerror(res));
             }
+		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &httpStatus);
+		printf("\nHTTP CODE STATUS: %ld\n", httpStatus);
 		curl_easy_cleanup(curl);
 	}
 }
