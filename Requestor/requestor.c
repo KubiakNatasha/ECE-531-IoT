@@ -21,7 +21,7 @@ void PUT(char *url, CURL *curl, CURLcode res ,char *postdata);
 void POST(char *url, CURL *curl, CURLcode res, char *postdata);
 void DELETE(char *url, CURL *curl, CURLcode res, char *postdata);
 static int parse_opt (int key, char *arg, struct argp_state *state);
-char newURL[100];
+char newURL;
 
 int main(int argc, char **argv) {
 	
@@ -130,12 +130,14 @@ void POST(char *url, CURL *curl, CURLcode res, char *postdata) {
 }
 
 
-void DELETE(char *url, CURL *curl, CURLcode res, char *postdata) {
+void DELETE(char *postdata) {
 	
+	CURL    *curl;
+	CURLcode res;
 	curl = curl_easy_init();
 
 	if(curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, url);
+		curl_easy_setopt(curl, CURLOPT_URL, URL);
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
 		res = curl_easy_perform(curl);
@@ -164,7 +166,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
     case 'u':
       printf("The Default URL is set to:	%s\n", URL);
 	  printf("New URL has been set.\n");
-	  printf("Entered Argument = %s\n", state);
+	  printf("Entered Argument = %s\n", arg);
 	  strcpy(newURL, arg);
 	  printf("New URL = %s\n", newURL);
       break;
@@ -188,6 +190,8 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	/*DELETE*/
     case 'd':
       printf("Delete\n");
+      printf("User Argument = %s\n", arg);
+      DELETE(arg);
       break;
 
 	case 'h':
