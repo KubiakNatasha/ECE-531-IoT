@@ -154,6 +154,8 @@ void DELETE(char *url, CURL *curl, CURLcode res, char *postdata) {
 static int 
 parse_opt (int key, char *arg, struct argp_state *state)
 {
+	/* Get the input argument from argp_parse, which we
+     know is a pointer to our arguments structure. */
 	struct arguments *a = state->input;
 
   switch (key)
@@ -162,8 +164,9 @@ parse_opt (int key, char *arg, struct argp_state *state)
     case 'u':
       printf("The Default URL is set to:	%s\n", URL);
 	  printf("New URL has been set.\n");
+	  printf("Entered Argument = %s\n", arg);
 	  strcpy(newURL, arg);
-	  printf("New URL = %s\n", newURL);
+	//   printf("New URL = %s\n", newURL);
 	
       break;
 
