@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
 
 /***************************************/
 
-void GET(*postdata) {
+void GET(char *postdata) {
 
 	CURL    *curl;
 	CURLcode res;
