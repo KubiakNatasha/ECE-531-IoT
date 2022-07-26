@@ -20,10 +20,10 @@
 
 /*********PROTOTYPE**************/
 void HELP();
-void GET(CURL *curl, char *postdata);
-void PUT(CURL *curl, char *postdata);
-void POST(CURL *curl, char *postdata);
-void DELETE(CURL *curl, char *postdata);
+void GET(CURL *curl, char *postdata, CURLcode res);
+void PUT(CURL *curl, char *postdata, CURLcode res);
+void POST(CURL *curl, char *postdata, CURLcode res);
+void DELETE(CURL *curl, char *postdata, CURLcode res);
 static int parse_opt (int key, char *arg, struct argp_state *state);
 char newURL[20];
 
@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
 
 /***************************************/
 
-void GET(CURL *curl, char *postdata) {
+void GET(CURL *curl, char *postdata, CURLcode res) {
 	/*GET method means retrieve whatever information 
 	(in the form of an entity) is identified by the Request-URI.*/
 
@@ -98,11 +98,10 @@ void GET(CURL *curl, char *postdata) {
 }
 
 
-void PUT(CURL *curl, char *postdata) {
+void PUT(CURL *curl, char *postdata, CURLcode res) {
 	/* UT method requests that the enclosed entity
 	 be stored under the supplied Request-URI.  */
 
-	CURLcode res;
 	curl = curl_easy_init();
 	
 
@@ -121,13 +120,12 @@ void PUT(CURL *curl, char *postdata) {
 }
 
 
-void POST (CURL *curl, char *postdata) {
+void POST (CURL *curl, char *postdata, CURLcode res) {
 	/* POST method is used to request that the origin server
 	 accept the entity enclosed in the request as a new 
 	 subordinate of the resource identified by the Request-URI
 	  in the Request-Line.*/
 
-	CURLcode res;
 	curl = curl_easy_init();
 
 
@@ -148,11 +146,10 @@ void POST (CURL *curl, char *postdata) {
 }
 
 
-void DELETE(CURL *curl, char *postdata) {
+void DELETE(CURL *curl, char *postdata, CURLcode res) {
 	/* DELETE method requests that the origin server
 	 delete the resource identified by the Request-URI.*/ 
-	
-	CURLcode res;
+
 	curl = curl_easy_init();
 
 	if(curl) {
@@ -179,6 +176,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
      know is a pointer to our arguments structure. */
 	struct arguments *a = state->input;
 	CURL    *curl;
+	CURLcode res
 
   switch (key)
   {
@@ -190,25 +188,25 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	/*POST*/
     case 'o':
       printf("POST\n");
-	  POST(curl, arg);
+	  POST(curl, arg, res);
 	  break;
 
 	/*GET*/
     case 'g':
 	  printf("GET\n");
-      GET(curl, arg); 
+      GET(curl, arg,res); 
       break;
 
 	/*PUT*/
     case 'p':
       printf("PUT\n");
-	  PUT(curl, arg);
+	  PUT(curl, arg,res);
 	  break;
 
 	/*DELETE*/
     case 'd':
       printf("DELETE\n");
-      DELETE(curl, arg);
+      DELETE(curl, arg,res);
       break;
 
 	/*HELP*/
