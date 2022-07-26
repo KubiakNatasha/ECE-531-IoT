@@ -181,6 +181,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	/*PUT*/
     case 'p':
       printf("PUT\n");
+	  PUT(arg)
 	  break;
 
 	/*DELETE*/
@@ -215,14 +216,13 @@ parse_opt (int key, char *arg, struct argp_state *state)
 		printf("1 INIT_ERR\n");
 		printf("2 REQ_ERR\n");
 		printf("-------------------------\n\n");
-		printf("To display help again:");
-		printf("hw -h --help\n");
+		printf("To display help again,	./hw -h");
 		break;
 
-	// default:
-	// 	printf("Invalid or Unkown Argument.\n"); 
-	// 	printf("For HELP enter: ./hw -h , or ./hw --help\n"); 
-	// 	break;
+	default:
+		printf("Invalid or Unkown Argument.\n"); 
+		printf("For HELP enter,	 ./hw -h\n"); 
+		break;
   }
   return 0;
 }
