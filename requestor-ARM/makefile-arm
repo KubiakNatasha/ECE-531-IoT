@@ -1,25 +1,24 @@
 BUILDROOT_HOME=/home/nkubiak/TOOLS/buildroot
-
 CC=$(BUILDROOT_HOME)/output/host/usr/bin/arm-linux-gcc
 CFLAGS=--sysroot=$(BUILDROOT_HOME)/output/staging
 INCLUDES=
-LFLAGS=
+LFLAGS= -lcurl -uClibc -lc -largp
 
-LIBS= -lcurl -uClibc -lc
+LIBS=
 
-SRC=requestor.c
+SRC=sampled.c
 OBJ=$(SRC:.c=.o)
-MAIN=test
+MAIN=sampled
 
 RM=rm -rf
 
 .c.o:
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+		$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(MAIN): $(OBJ)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJ) $(LFLAGS) $(LIBS)
+		$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJ) $(LFLAGS) $(LIBS)
 
 all: $(MAIN)
 
 clean:
-		$(RM) $(MAIN) *.o *~
+	$(RM) $(MAIN) *.o *~

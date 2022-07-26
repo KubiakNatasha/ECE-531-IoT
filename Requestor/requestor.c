@@ -2,15 +2,14 @@
 #include <curl/curl.h>
 #include <string.h>
 #include <argp.h>
-/* Information on argp.h used from tutorial : http://nongnu.askapache.com/argpbook/step-by-step-into-argp.pdf */
+/*** Information on argp.h used from tutorial : http://nongnu.askapache.com/argpbook/step-by-step-into-argp.pdf ***/
 
 
 #define OK          0
 #define INIT_ERR    1
 #define REQ_ERR     2
-#define default		"default"
-/*DEFAULT URL*/
 #define URL         "https://example.com" 
+#define default		"default"
 
 
 
@@ -22,6 +21,8 @@ void POST(char *postdata);
 void DELETE(char *postdata);
 static int parse_opt (int key, char *arg, struct argp_state *state);
 char newURL[20];
+
+/*********MAIN*******************/
 
 int main(int argc, char **argv) {
 	
