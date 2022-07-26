@@ -6,9 +6,9 @@ LFLAGS= -lcurl -uClibc -lc -largp
 
 LIBS=
 
-SRC=sampled.c
+SRC=requestor.c
 OBJ=$(SRC:.c=.o)
-MAIN=sampled
+MAIN=hw
 
 RM=rm -rf
 
