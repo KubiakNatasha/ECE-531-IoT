@@ -164,22 +164,18 @@ parse_opt (int key, char *arg, struct argp_state *state)
   {
 	/* URL */
     case 'u':
-      printf("The Default URL is set to:	%s\n", URL);
-	  printf("New URL has been set.\n");
-	  printf("Entered Argument = %s\n", arg);
-	  strcpy(arg, newURL);
-	  printf("New URL = %s\n", newURL);
+	  strcpy(newURL, arg);
       break;
 
 	/*POST*/
     case 'o':
-      printf("Post\n");
+      printf("POST\n");
 	  break;
 
 	/*GET*/
     case 'g':
-	  printf("Get\n");
-      GET(); 
+	  printf("GET\n");
+      GET(arg); 
       break;
 
 	/*PUT*/
@@ -189,8 +185,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
 
 	/*DELETE*/
     case 'd':
-      printf("Delete\n");
-      printf("User Argument = %s\n", arg);
+      printf("DELETE\n");
       DELETE(arg);
       break;
 
