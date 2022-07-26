@@ -8,7 +8,7 @@
 #define OK          0
 #define INIT_ERR    1
 #define REQ_ERR     2
-#define default		0
+#define default		"default"
 /*DEFAULT URL*/
 #define URL         "https://example.com" 
 
@@ -31,11 +31,11 @@ int main(int argc, char **argv) {
 
 	struct argp_option options[] =
 	{
-		{"url", 'u',0, 0, "Set URL"},
-		{"put", 'p',0, 0, "Put"},
-		{"post", 'o',0, 0, "Post"},
+		{"url", 'u',URL, 0, "Set URL"},
+		{"put", 'p',"default", 0, "Put"},
+		{"post", 'o',"default", 0, "Post"},
 		{"get", 'g',0, 0, "Get"},
-		{"delete", 'd',0, 0, "Delete"}, 
+		{"delete", 'd',"default", 0, "Delete"}, 
 		{"help", 'h',0, 0, "Help"},
 		{0}
 	};
@@ -159,6 +159,11 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	/* Get the input argument from argp_parse, which we
      know is a pointer to our arguments structure. */
 	struct arguments *a = state->input;
+
+	while(arg) {
+    printf("%s\n", *arg); /* %s instead of %c and drop [i]. */
+    arg++; /* Next arg. */
+}
 
   switch (key)
   {
