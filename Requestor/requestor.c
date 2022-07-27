@@ -106,7 +106,7 @@ void GET(CURL *curl, char *postdata) {
 void PUT(CURL *curl, char *postdata) {
 	/* UT method requests that the enclosed entity
 	 be stored under the supplied Request-URI.  */
-const char *postdata = "any_data";
+const char postdata = "any_data";
 	CURLcode res;
 	curl = curl_easy_init();
 	int httpStatus = 0;
