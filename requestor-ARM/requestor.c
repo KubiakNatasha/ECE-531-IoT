@@ -3,6 +3,9 @@
 /*Information on argp.h used from tutorial : http://nongnu.askapache.com/argpbook/step-by-step-into-argp.pdf */
 /*HTTP Requests using libcurl:  https://curl.se/libcurl/c/http-post.html */
 
+/* command */
+/* ./hw --get --url http://localhost:8080 */
+
 #include <stdio.h>
 #include <curl/curl.h>
 #include <string.h>
@@ -103,7 +106,7 @@ void GET(CURL *curl, char *postdata) {
 void PUT(CURL *curl, char *postdata) {
 	/* UT method requests that the enclosed entity
 	 be stored under the supplied Request-URI.  */
-
+	const char *postdata = "any_data";
 	CURLcode res;
 	curl = curl_easy_init();
 	int httpStatus = 0;
@@ -112,7 +115,7 @@ void PUT(CURL *curl, char *postdata) {
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, URL);
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, *postdata); 
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata); 
 		res = curl_easy_perform(curl);
 
             if(res != CURLE_OK) {
@@ -181,11 +184,11 @@ void DELETE(CURL *curl, char *postdata) {
                 fprintf(stderr, "Curl unable to HTTP DELETE %s\n", 
                 curl_easy_strerror(res));
             }
-			// 	else if(res == CURLE_OK) {
-			// 	long response_code;
-			// 	curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
-			// 	printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
-			// }
+				else if(res == CURLE_OK) {
+				long response_code;
+				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
+			}
 			
 
 		curl_easy_cleanup(curl);

@@ -3,6 +3,9 @@
 /*Information on argp.h used from tutorial : http://nongnu.askapache.com/argpbook/step-by-step-into-argp.pdf */
 /*HTTP Requests using libcurl:  https://curl.se/libcurl/c/http-post.html */
 
+/* command */
+/* ./hw --get --url http://localhost:8080 */
+
 #include <stdio.h>
 #include <curl/curl.h>
 #include <string.h>
@@ -181,11 +184,11 @@ void DELETE(CURL *curl, char *postdata) {
                 fprintf(stderr, "Curl unable to HTTP DELETE %s\n", 
                 curl_easy_strerror(res));
             }
-			// 	else if(res == CURLE_OK) {
-			// 	long response_code;
-			// 	curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
-			// 	printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
-			// }
+				else if(res == CURLE_OK) {
+				long response_code;
+				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
+			}
 			
 
 		curl_easy_cleanup(curl);
