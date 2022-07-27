@@ -1,14 +1,14 @@
 
-/* command */
-/* /home/nkubiak/TOOLS/buildroot/output/host/usr/bin/arm-linux-gcc --sysroot=/home/nkubiak/TOOLS/buildroot/output/staging requestor.c -o hw -lcurl -lc -uClibc -largp  */
+/* command 
+/home/nkubiak/TOOLS/buildroot/output/host/usr/bin/arm-linux-gcc --sysroot=/home/nkubiak/TOOLS/buildroot/output/staging requestor.c -o hw -lcurl -lc -uClibc -largp  
 
-/*Natasha Kubiak		*/
-/*ECE 531-SUMMER 2022	*/
-/*Information on argp.h used from tutorial : http://nongnu.askapache.com/argpbook/step-by-step-into-argp.pdf */
-/*HTTP Requests using libcurl:  https://curl.se/libcurl/c/http-post.html */
 
-/* command */
-/* ./hw --get --url http://localhost:8080 */
+Natasha Kubiak		
+ECE 531-SUMMER 2022	
+Information on argp.h used from tutorial : http://nongnu.askapache.com/argpbook/step-by-step-into-argp.pdf 
+HTTP Requests using libcurl:  https://curl.se/libcurl/c/http-post.html */
+
+
 
 #include <stdio.h>
 #include <curl/curl.h>
