@@ -90,7 +90,7 @@ void GET(CURL *curl, char *postdata) {
 		res = curl_easy_perform(curl);
 
             if(res != CURLE_OK) {
-                fprintf(stderr, "Curl unable to http GET %s\n", 
+                fprintf(stderr, "Curl unable to http GET\n %s\n", 
                         curl_easy_strerror(res));       
             }
 				else if(res == CURLE_OK) {
@@ -118,7 +118,7 @@ void PUT(CURL *curl, char *postdata) {
 		res = curl_easy_perform(curl);
 
             if(res != CURLE_OK) {
-                fprintf(stderr, "Curl unable to HTTP PUT %s\n", 
+                fprintf(stderr, "Curl unable to HTTP PUT\n %s\n", 
                 curl_easy_strerror(res));
             }
 				else if(res == CURLE_OK) {
@@ -151,7 +151,7 @@ void POST (CURL *curl, char *postdata) {
 		res = curl_easy_perform(curl);
 
             if(res != CURLE_OK) {
-                fprintf(stderr, "Curl unable to HTTP POST %s\n", 
+                fprintf(stderr, "Curl unable to HTTP POST\n %s\n", 
                 curl_easy_strerror(res));
             }
 				else if(res == CURLE_OK) {
@@ -180,7 +180,7 @@ void DELETE(CURL *curl, char *postdata) {
 		res = curl_easy_perform(curl);
 
             if(res != CURLE_OK) {
-                fprintf(stderr, "Curl unable to HTTP DELETE %s\n", 
+                fprintf(stderr, "Curl unable to HTTP DELETE\n %s\n", 
                 curl_easy_strerror(res));
             }
 				else if(res == CURLE_OK) {
