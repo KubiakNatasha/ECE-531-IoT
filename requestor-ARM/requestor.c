@@ -106,7 +106,6 @@ void GET(CURL *curl, char *postdata) {
 void PUT(CURL *curl, char *postdata) {
 	/* UT method requests that the enclosed entity
 	 be stored under the supplied Request-URI.  */
-	const char *postdata = "any_data";
 	CURLcode res;
 	curl = curl_easy_init();
 	int httpStatus = 0;
@@ -148,7 +147,7 @@ void POST (CURL *curl, char *postdata) {
 		curl_easy_setopt(curl, CURLOPT_URL, URL);
 		curl_easy_setopt(curl, CURLOPT_POST, 1L);
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)strlen(postdata));
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, postdata);
 		res = curl_easy_perform(curl);
 
             if(res != CURLE_OK) {
@@ -177,7 +176,7 @@ void DELETE(CURL *curl, char *postdata) {
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, URL);
 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, *postdata);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
 		res = curl_easy_perform(curl);
 
             if(res != CURLE_OK) {
