@@ -35,6 +35,7 @@ char *ERROR_FORMAT = "Format Error";
 void _signal_handler(const int signal);
 void _do_work(void);
 void HELP();
+int readtemp();
 /******************************************/
 
 
@@ -163,6 +164,26 @@ void _signal_handler(const int signal) {
             exit(OK);
 
     }
+}
+
+int ReadTemp() {
+
+    char *p;
+    char temp[100];
+	FILE* fp = fopen("/tmp/temp", "rb");
+
+	if(fp == NULL) {
+		printf("Error accessing file\n");
+		return 1;
+	}
+
+	fgets(temp, sizeof(temp), fp);
+	fclose(fp);
+
+	int tempurature = strtol(temp, &p, 10);
+    printf("\nTemp Read: %d\n", temp);
+
+	return temp;
 }
 
 void HELP() {
