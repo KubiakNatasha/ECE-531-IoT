@@ -28,6 +28,9 @@
 #define SIGHUP          1
 /*Error Format*/
 char *ERROR_FORMAT = "Format Error";
+CURL *curl;
+CURLcode res;
+curl = curl_easy_init();
 
 
 
@@ -46,6 +49,7 @@ void DELETE(CURL *curl, char *postdata);
 
 
 int main(int argc, char **argv) {
+  
 
 
     openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
