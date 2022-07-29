@@ -21,6 +21,7 @@
 #define ERROR           3
 #define ERR_FORK        4
 #define ERR_CHDIR       5
+#define INIT_ERR        6
 #define true            0
 /*Case Values*/
 #define SIGTERM         15
