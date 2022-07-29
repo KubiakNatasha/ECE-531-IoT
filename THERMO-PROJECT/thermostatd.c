@@ -9,7 +9,6 @@
 #include <string.h>
 #include <time.h>
 #include <signal.h>
-#include <stdbool.h>
 #include <curl/curl.h>
 #include <argp.h>
 
@@ -26,11 +25,11 @@
 #define ERR_CHDIR       4
 #define true            0
 /*Case Values*/
-#define SIGTERM         2
-#define SIGHUP          3
+#define SIGTERM         5
+#define SIGHUP          6
 /*Error Format*/
-#define INIT_ERR        5
-#define REQ_ERR         6   
+#define INIT_ERR        7
+#define REQ_ERR         8   
 char *ERROR_FORMAT = "Format Error";
 
 
