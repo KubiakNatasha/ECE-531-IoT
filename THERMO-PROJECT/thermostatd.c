@@ -15,14 +15,14 @@
 #define DAEMON_NAME     "sampled"
 
 #define OK              0
-#define ERR_SETSID      1
-#define ERROR           2
-#define ERR_FORK        3
-#define ERR_CHDIR       4
+#define ERR_SETSID      2
+#define ERROR           3
+#define ERR_FORK        4
+#define ERR_CHDIR       5
 #define true            0
 /*Case Values*/
-#define SIGTERM         5
-#define SIGHUP          6
+#define SIGTERM         15
+#define SIGHUP          1
 /*Error Format*/
 char *ERROR_FORMAT = "Format Error";
 
