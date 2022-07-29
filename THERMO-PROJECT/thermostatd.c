@@ -13,7 +13,7 @@
 #include <argp.h>
 
 #define DAEMON_NAME     "thermostat-projectd"
-#define URL             "" /*URL FOR SERVER?*/
+#define URL             "http://ec2-35-160-6-245.us-west-2.compute.amazonaws.com/project.php" /*URL FOR SERVER?*/
 /* I was having a hard time figuring out AWS and mysql*/
 
 #define OK              0
@@ -39,6 +39,9 @@ int ReadTemp();
 void HeaterStatus();
 int TimeHour();
 int TimeMin();
+void GET(CURL *curl, char *postdata);
+void POST(CURL *curl, char *postdata);
+void DELETE(CURL *curl, char *postdata);
 /******************************************/
 
 
@@ -277,4 +280,96 @@ void HELP() {
         printf("-------------------------\n");
         printf("START:\t./project\n");
         printf("HELP: ./project -h OR ./project --help\n");
+}
+
+
+
+void GET(CURL *curl, char *postdata) {
+	/*GET method means retrieve whatever information 
+	(in the form of an entity) is identified by the Request-URI.*/
+
+	
+	CURLcode res;
+	curl = curl_easy_init();
+	int httpStatus = 0;
+
+	if(curl) {
+		curl_easy_setopt(curl, CURLOPT_URL, URL);
+		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+		res = curl_easy_perform(curl);
+
+            if(res != CURLE_OK) {
+                fprintf(stderr, "Curl unable to http GET\n %s\n", 
+                        curl_easy_strerror(res));       
+            }
+				else if(res == CURLE_OK) {
+				long response_code;
+				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
+			}
+		curl_easy_cleanup(curl);
+	}
+}
+
+
+void POST (CURL *curl, char *postdata) {
+	/* POST method is used to request that the origin server
+	 accept the entity enclosed in the request as a new 
+	 subordinate of the resource identified by the Request-URI
+	  in the Request-Line.*/
+
+	CURLcode res;
+	curl = curl_easy_init();
+	int httpStatus = 0;
+
+
+	if(curl) {
+		curl_easy_setopt(curl, CURLOPT_URL, URL);
+		curl_easy_setopt(curl, CURLOPT_POST, 1L);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, postdata);
+		res = curl_easy_perform(curl);
+
+            if(res != CURLE_OK) {
+                fprintf(stderr, "Curl unable to HTTP POST\n %s\n", 
+                curl_easy_strerror(res));
+            }
+				else if(res == CURLE_OK) {
+				long response_code;
+				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
+			}
+
+		curl_easy_cleanup(curl);
+	}
+}
+
+
+void DELETE(CURL *curl, char *postdata) {
+	/* DELETE method requests that the origin server
+	 delete the resource identified by the Request-URI.*/ 
+	
+	CURLcode res;
+	curl = curl_easy_init();
+	int httpStatus = 0;
+
+	if(curl) {
+		curl_easy_setopt(curl, CURLOPT_URL, URL);
+		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
+		res = curl_easy_perform(curl);
+
+            if(res != CURLE_OK) {
+                fprintf(stderr, "Curl unable to HTTP DELETE\n %s\n", 
+                curl_easy_strerror(res));
+            }
+				else if(res == CURLE_OK) {
+				long response_code;
+				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
+			}
+			
+
+		curl_easy_cleanup(curl);
+	}
 }
