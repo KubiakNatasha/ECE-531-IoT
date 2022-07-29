@@ -183,7 +183,7 @@ int ReadTemp() {
 	int tempurature = strtol(temp, &p, 10);
     printf("\nTemp Read: %d\n", tempurature);
 
-	return temp;
+	return tempurature;
 }
 
 void HELP() {
