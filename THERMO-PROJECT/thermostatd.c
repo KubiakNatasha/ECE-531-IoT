@@ -209,10 +209,9 @@ void HeaterStatus()
 			FILE *filep;
 			filep = fopen("/tmp/status", "wb");
 			char *status = "OFF";
-			fprintf(filep, "%s", status);
+			fprintf(filep, "%s at time:%02d:%02d", status, hours,minutes);
 			fclose(filep);
 			syslog(LOG_INFO, "OFF\n"); 
-                   /* Need a time stamp */
 
 		}
      
@@ -220,7 +219,7 @@ void HeaterStatus()
 			FILE *filep;
 			filep = fopen("/tmp/status", "wb");
 			char *status = "ON";
-			fprintf(filep, "%s", status);
+			fprintf(filep, "%s at time:%02d:%02d", status, hours,minutes);
 			fclose(filep);
 			syslog(LOG_INFO, "ON\n"); 
                     /* need a timestamp */
