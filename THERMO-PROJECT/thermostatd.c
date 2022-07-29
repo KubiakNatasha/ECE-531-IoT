@@ -8,9 +8,15 @@
 #include <syslog.h>
 #include <string.h>
 #include <time.h>
+#include <signal.h>
+#include <stdbool.h>
+#include <curl/curl.h>
+#include <argp.h>
 
 
-#define DAEMON_NAME     "thermostatd"
+
+#define DAEMON_NAME     "thermostat-projectd"
+#define URL             "" /*URL FOR SERVER?*/
 
 #define OK              0
 #define ERR_SETSID      1
@@ -22,6 +28,8 @@
 #define SIGTERM         2
 #define SIGHUP          3
 /*Error Format*/
+#define INIT_ERR        5
+#define REQ_ERR         6   
 char *ERROR_FORMAT = "Format Error";
 
 
@@ -29,14 +37,54 @@ char *ERROR_FORMAT = "Format Error";
 /****************Define functions**********/
 void _signal_handler(const int signal);
 void _do_work(void);
+void HELP();
+int tempurature_get();
 /******************************************/
 
+/******************STRUCT******************/
+typedef struct {
+	int hr;
+	int min;
+}time_format;
 
-int main(void) {
 
 
-    openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
-    syslog(LOG_INFO, "starting sampled");
+int main(int argc, char *argv[]) {
+
+ openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
+ syslog(LOG_INFO, "starting thermostat-projectd");
+
+ 
+
+/*****Want to Read Tempurature Continuously*****/
+    while(1){
+		int temp = read_temp();
+/*****As tempurature is read, check for celcius value above certain threshold, if so turn OFF heater*******/
+/*****Celcius above 30, or 86 F , heater OFF *****/
+        if(temp >= 30) {
+			FILE *filep;
+			filep = fopen("/tmp/status", "wb");
+			char *status = "OFF";
+			fprintf(filep, "%s", status);
+			fclose(filep);
+			syslog(LOG_INFO, "OFF\n");
+
+		}
+		else if (temp <= 30) {
+			FILE *filep;
+			filep = fopen("/tmp/status", "wb");
+			char *status = "ON";
+			fprintf(filep, "%s", status);
+			fclose(filep);
+			syslog(LOG_INFO, "ON\n");
+		}
+
+
+
+    }
+
+  
+    syslog(LOG_INFO, "starting thermostat-projectd");
     
 
     /* fork off the parent process*/
@@ -82,8 +130,6 @@ int main(void) {
     _do_work();
 
 
-    return ERROR;
-
 }
 
     //work will be done by daemon
@@ -122,4 +168,44 @@ void _signal_handler(const int signal) {
             exit(OK);
 
     }
+}
+
+int tempurature_get() {
+
+    char *p;
+    char temp[100];
+	FILE* fp = fopen("/tmp/temp", "rb");
+
+	if(fp == NULL) {
+		printf("Error accessing file\n");
+		return 1;
+	}
+
+	fgets(temp, sizeof(temp), fp);
+	fclose(fp);
+
+	int tempurature = strtol(temp, &p, 10);
+    printf("\nTemp Read: %d\n", temp);
+
+	return temp;
+}
+
+
+
+void HELP() {
+        printf("\nTHERMOSTAT HELP:\n");
+		printf("-------------------------\n");
+        printf("EXIT DEFINITIONS\n");
+        printf("-------------------------\n");
+        printf("ERR_SETSID      1\n");
+        printf("ERROR           2\n");
+        printf("ERR_FORK        3\n");
+        printf("ERR_CHDIR       4\n");
+        printf("INIT_ERR        5\n");
+        printf("REQ_ERR         6\n");
+        printf("-------------------------\n");
+        printf("COMMAND LINE INPUT FORMAT\n");
+        printf("-------------------------\n");
+        printf("START:\t./project\n");
+        printf("HELP:\t./project -h\t OR\t ./project --help\n");
 }
