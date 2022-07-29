@@ -21,8 +21,8 @@
 #define ERR_CHDIR       4
 #define true            0
 /*Case Values*/
-#define SIGTERM         2
-#define SIGHUP          3
+#define SIGTERM         5
+#define SIGHUP          6
 /*Error Format*/
 char *ERROR_FORMAT = "Format Error";
 
