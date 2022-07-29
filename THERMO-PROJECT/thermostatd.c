@@ -181,7 +181,7 @@ int ReadTemp() {
 	fclose(fp);
 
 	int tempurature = strtol(temp, &p, 10);
-    printf("\nTemp Read: %d\n", temp);
+    printf("\nTemp Read: %d\n", tempurature);
 
 	return temp;
 }
