@@ -36,7 +36,7 @@ void _signal_handler(const int signal);
 void _do_work(void);
 void HELP();
 int ReadTemp();
-void HeaterStatus()
+void HeaterStatus();
 /******************************************/
 
 
