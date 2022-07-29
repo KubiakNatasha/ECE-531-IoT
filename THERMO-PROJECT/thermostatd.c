@@ -40,7 +40,7 @@ int ReadTemp();
 void HeaterStatus();
 int TimeHour();
 int TimeMin();
-void DAEMON()
+void DAEMON();
 // void GET(CURL *curl, char *postdata);
 // void POST(CURL *curl, char *postdata);
 // void DELETE(CURL *curl, char *postdata);
