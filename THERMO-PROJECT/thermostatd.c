@@ -28,9 +28,7 @@
 #define SIGHUP          1
 /*Error Format*/
 char *ERROR_FORMAT = "Format Error";
-CURL *curl;
-CURLcode res;
-curl = curl_easy_init();
+
 
 
 
@@ -49,7 +47,9 @@ void DELETE(CURL *curl, char *postdata);
 
 
 int main(int argc, char **argv) {
+
   
+    CURL *curl;
 
 
     openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
@@ -292,7 +292,7 @@ void GET(CURL *curl, char *postdata) {
 	/*GET method means retrieve whatever information 
 	(in the form of an entity) is identified by the Request-URI.*/
 
-	
+
 	CURLcode res;
 	curl = curl_easy_init();
 	int httpStatus = 0;
