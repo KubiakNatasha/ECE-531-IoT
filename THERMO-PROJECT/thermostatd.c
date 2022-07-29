@@ -12,7 +12,9 @@
 #include <curl/curl.h>
 #include <argp.h>
 
-#define DAEMON_NAME     "sampled"
+#define DAEMON_NAME     "thermostat-projectd"
+#define URL             "" /*URL FOR SERVER?*/
+/* I was having a hard time figuring out AWS and mysql*/
 
 #define OK              0
 #define ERR_SETSID      2
@@ -31,6 +33,7 @@ char *ERROR_FORMAT = "Format Error";
 /****************Define functions**********/
 void _signal_handler(const int signal);
 void _do_work(void);
+void HELP();
 /******************************************/
 
 
@@ -39,6 +42,39 @@ int main(void) {
 
     openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
     syslog(LOG_INFO, "starting sampled");
+     syslog(LOG_INFO, "Recieving Arguments");
+
+    if(argc < 1) {
+			printf("Empty Argument.\n");
+			printf("Exiting...\n");
+            HELP();
+			return INIT_ERR;
+			
+		}
+
+	if(argc == 1) {
+    /* Only one argument ( the starting argument )*/
+
+		syslog(LOG_INFO, "Running Thermostatd!\n");
+
+
+	}
+    /* more than one argument? this must mean help was called */
+	else if (argc > 1) {
+		syslog(LOG_INFO, "Recieved Argument!\n");
+
+		for(int i = 1; i < argc; i++) {
+            /* check for -h, or --h */
+			if((strcmp(argv[i], "-h") == 0) || (strcmp(argv[i], "--help") == 0)) 
+            {
+				HELP();
+                EXIT(OK);
+			}
+            else{
+            printf("Unknown Argument. See -h, or --help, for assistance.\n");
+            HELP();
+            exit(INIT_ERR);
+            }
     
 
     /* fork off the parent process*/
@@ -124,4 +160,22 @@ void _signal_handler(const int signal) {
             exit(OK);
 
     }
+}
+
+void HELP() {
+        printf("\nTHERMOSTAT HELP:\n");
+		printf("-------------------------\n");
+        printf("EXIT DEFINITIONS\n");
+        printf("-------------------------\n");
+        printf("ERR_SETSID      1\n");
+        printf("ERROR           2\n");
+        printf("ERR_FORK        3\n");
+        printf("ERR_CHDIR       4\n");
+        printf("INIT_ERR        5\n");
+        printf("REQ_ERR         6\n");
+        printf("-------------------------\n");
+        printf("COMMAND LINE INPUT FORMAT\n");
+        printf("-------------------------\n");
+        printf("START:\t./project\n");
+        printf("HELP:\t./project -h\t OR\t ./project --help\n");
 }
