@@ -37,7 +37,7 @@ void HELP();
 /******************************************/
 
 
-int main(void) {
+int main(int argc, char **argv) {
 
 
     openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
@@ -68,7 +68,7 @@ int main(void) {
 			if((strcmp(argv[i], "-h") == 0) || (strcmp(argv[i], "--help") == 0)) 
             {
 				HELP();
-                EXIT(OK);
+                exit(OK);
 			}
             else{
             printf("Unknown Argument. See -h, or --help, for assistance.\n");
