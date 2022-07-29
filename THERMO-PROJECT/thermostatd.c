@@ -55,8 +55,8 @@ typedef struct {
 int main(int argc, char *argv[]) {
 
  openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
- void CheckArgument(argc, argv)
- 
+ void CheckArgument(argc, argv);
+
  syslog(LOG_INFO, "starting thermostat-projectd");
 
     /* fork off the parent process*/
