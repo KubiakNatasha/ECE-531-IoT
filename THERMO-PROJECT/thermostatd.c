@@ -76,6 +76,7 @@ int main(int argc, char **argv) {
             HELP();
             exit(INIT_ERR);
             }
+        }
     
 
     /* fork off the parent process*/
