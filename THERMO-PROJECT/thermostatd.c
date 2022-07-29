@@ -210,7 +210,7 @@ void HeaterStatus()
 			fprintf(filep, "%s", status);
 			fclose(filep);
 			syslog(LOG_INFO, "OFF\n"); 
-            Time();     `   /* Need a time stamp */
+            Time();        /* Need a time stamp */
 
 		}
 		else if (temp <= 30) {
