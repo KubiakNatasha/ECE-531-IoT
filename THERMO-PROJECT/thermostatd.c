@@ -37,7 +37,8 @@ void _do_work(void);
 void HELP();
 int ReadTemp();
 void HeaterStatus();
-void Time();
+void TimeHour();
+int TimeMin();
 /******************************************/
 
 
@@ -213,6 +214,16 @@ void HeaterStatus()
             Time();        /* Need a time stamp */
 
 		}
+         // print local time
+    if (hours < 12) {    // before midday
+        printf("Time is %02d:%02d:%02d am\n", hours, minutes, seconds);
+    }
+    else {    // after midday
+        printf("Time is %02d:%02d:%02d pm\n", hours - 12, minutes, seconds);
+    }
+ 
+    // print the current date
+    printf("Date is: %02d/%02d/%d\n", day, month, year);
 		else if (temp <= 30) {
 			FILE *filep;
 			filep = fopen("/tmp/status", "wb");
@@ -227,16 +238,35 @@ void HeaterStatus()
 
 
 
-void Time(void) {
-  time_t Time;
-  struct tm *tm;
-  while(true)
-  {
-    time(&Time);
-    tm = localtime(&Time);
-    syslog(LOG_INFO, "The Time Is: %i:%i:%i\n",tm->tm_hour,tm->tm_min,tm->tm_sec);
-    sleep(1);
-  }
+int TimeHour() {
+
+    int hours;
+
+
+    time_t now;
+    /*Get the current time*/
+    time(&now);
+    struct tm *local = localtime(&now);
+ 
+    hours = local->tm_hour;         
+    return (hours);
+ 
+}
+
+
+int TimeMin() {
+
+    int hours;
+
+
+    time_t now;
+    /*Get the current time*/
+    time(&now);
+    struct tm *local = localtime(&now);
+ 
+    hours = local->tm_hour;         
+    return (hours);
+ 
 }
 
 void HELP() {
