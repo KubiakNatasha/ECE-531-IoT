@@ -35,7 +35,8 @@ char *ERROR_FORMAT = "Format Error";
 void _signal_handler(const int signal);
 void _do_work(void);
 void HELP();
-int readtemp();
+int ReadTemp();
+void HeaterStatus()
 /******************************************/
 
 
@@ -135,8 +136,9 @@ void _do_work(void){
   
 
     for (int i = 0; 100; i++){
-
-        syslog(LOG_INFO, "iteration:%d", i);
+        ReadTemp();
+        HeaterStatus()
+       // syslog(LOG_INFO, "iteration:%d", i);
         sleep(1);
     }
 }
@@ -166,6 +168,10 @@ void _signal_handler(const int signal) {
     }
 }
 
+/*****************TEMPURATURE FUNCTIONS***************************/
+/**** Read from file /tmp/temp from thermo couple and also   *****/
+/**** Write to file to change status to ON or OFF for heater *****/
+/*****************************************************************/
 int ReadTemp() {
 
     char *p;
@@ -184,6 +190,31 @@ int ReadTemp() {
     printf("\nTemp Read: %d\n", tempurature);
 
 	return tempurature;
+}
+
+void HeaterStatus()
+{
+   
+		int temp = ReadTemp();
+/*****As tempurature is read, check for celcius value above certain threshold, if so turn OFF heater*******/
+/*****Celcius above 30, or 86 F , heater OFF *****/
+        if(temp >= 30) {
+			FILE *filep;
+			filep = fopen("/tmp/status", "wb");
+			char *status = "OFF";
+			fprintf(filep, "%s", status);
+			fclose(filep);
+			syslog(LOG_INFO, "OFF\n");
+
+		}
+		else if (temp <= 30) {
+			FILE *filep;
+			filep = fopen("/tmp/status", "wb");
+			char *status = "ON";
+			fprintf(filep, "%s", status);
+			fclose(filep);
+			syslog(LOG_INFO, "ON\n");
+		}
 }
 
 void HELP() {
