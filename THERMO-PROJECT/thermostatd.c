@@ -212,7 +212,7 @@ void HeaterStatus()
 			fprintf(filep, "%s", status);
 			fclose(filep);
 			syslog(LOG_INFO, "OFF\n"); 
-            Time();        /* Need a time stamp */
+                   /* Need a time stamp */
 
 		}
      
@@ -223,7 +223,7 @@ void HeaterStatus()
 			fprintf(filep, "%s", status);
 			fclose(filep);
 			syslog(LOG_INFO, "ON\n"); 
-            Time();         /* need a timestamp */
+                    /* need a timestamp */
 		}
 }
 
@@ -248,7 +248,7 @@ int TimeHour() {
 
 int TimeMin() {
 
-    int min;
+    int minutes;
 
 
     time_t now;
