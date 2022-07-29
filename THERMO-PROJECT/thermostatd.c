@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
 
     openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
     syslog(LOG_INFO, "starting sampled");
-     syslog(LOG_INFO, "Recieving Arguments");
+    syslog(LOG_INFO, "Recieving Arguments");
 
     if(argc < 1) {
 			printf("Empty Argument.\n");
@@ -173,13 +173,14 @@ void _signal_handler(const int signal) {
 /**** Write to file to change status to ON or OFF for heater *****/
 /*****************************************************************/
 int ReadTemp() {
-
+    printf("goofy");
     char *p;
     char temp[100];
 	FILE* fp = fopen("/tmp/temp", "rb");
 
 	if(fp == NULL) {
-		printf("Error accessing file\n");
+		syslog(LOG_INFO, "Error Reading File");
+
 		return 1;
 	}
 
