@@ -12,7 +12,7 @@
 #include <curl/curl.h>
 #include <argp.h>
 
-#define DAEMON_NAME     "thermostatd"
+#define DAEMON_NAME     "thermostat-projectd"
 #define URL             "http://ec2-35-160-6-245.us-west-2.compute.amazonaws.com/project.php" /*URL FOR SERVER?*/
 /* I was having a hard time figuring out AWS and mysql*/
 
@@ -40,7 +40,6 @@ int ReadTemp();
 void HeaterStatus();
 int TimeHour();
 int TimeMin();
-void DAEMON()
 // void GET(CURL *curl, char *postdata);
 // void POST(CURL *curl, char *postdata);
 // void DELETE(CURL *curl, char *postdata);
@@ -49,7 +48,13 @@ void DAEMON()
 
 int main(int argc, char **argv) {
 
-  /*Check Arguments*/
+  
+    // CURL *curl;
+
+    openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
+    syslog(LOG_INFO, "starting sampled");
+    syslog(LOG_INFO, "Recieving Arguments");
+
     if(argc < 1) {
 			printf("Empty Argument.\n");
 			printf("Exiting...\n");
@@ -84,7 +89,51 @@ int main(int argc, char **argv) {
         }
     }
     
-    DAEMON();
+
+    /* fork off the parent process*/
+    pid_t pid = fork();
+    
+    //check if child
+    if (pid < 0){
+        syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
+        return ERR_FORK;
+    }
+    // check if parent process, continue
+    if (pid > 0){
+        return OK;
+    }
+
+
+
+    if(setsid() < -1) {
+        syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
+        return ERR_SETSID;
+    }
+
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
+
+
+    umask(S_IRUSR | S_IWUSR | S_IRGRP |S_IROTH);
+
+    //Set the working directory.
+    //Set to Root to make navigation easy
+
+    if(chdir("/") < 0) {
+        syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
+        return ERR_CHDIR;
+    }
+
+    //signal handling
+
+    signal(SIGTERM, _signal_handler);
+    signal(SIGHUP, _signal_handler);
+    
+    _do_work();
+
+
+    return ERROR;
 
 }
 
@@ -94,10 +143,10 @@ int main(int argc, char **argv) {
 void _do_work(void){
   
 
-   while(1){
+    for (int i = 0; 10; i++){
         ReadTemp();
         HeaterStatus();
-        syslog(LOG_INFO, "iteration:%d", i);
+       // syslog(LOG_INFO, "iteration:%d", i);
         sleep(1);
         /* Wait one second so tempurature can increase */
     }
@@ -236,58 +285,7 @@ void HELP() {
         printf("HELP: ./project -h OR ./project --help\n");
 }
 
-void DAEMON(){
 
-    openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
-    syslog(LOG_INFO, "starting sampled");
-    
-
-    /* fork off the parent process*/
-    pid_t pid = fork();
-    
-    //check if child
-    if (pid < 0){
-        syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
-        return ERR_FORK;
-    }
-    // check if parent process, continue
-    if (pid > 0){
-        return OK;
-    }
-
-
-
-    if(setsid() < -1) {
-        syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
-        return ERR_SETSID;
-    }
-
-    close(STDIN_FILENO);
-    close(STDOUT_FILENO);
-    close(STDERR_FILENO);
-
-
-    umask(S_IRUSR | S_IWUSR | S_IRGRP |S_IROTH);
-
-    //Set the working directory.
-    //Set to Root to make navigation easy
-
-    if(chdir("/") < 0) {
-        syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
-        return ERR_CHDIR;
-    }
-
-    //signal handling
-
-    signal(SIGTERM, _signal_handler);
-    signal(SIGHUP, _signal_handler);
-    
-    _do_work();
-
-
-    return ERROR;
-
-}
 
 // void GET(CURL *curl, char *postdata) {
 // 	/*GET method means retrieve whatever information 
