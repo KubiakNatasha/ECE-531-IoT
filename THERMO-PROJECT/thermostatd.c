@@ -37,7 +37,7 @@ void _do_work(void);
 void HELP();
 int ReadTemp();
 void HeaterStatus();
-void TimeHour();
+int TimeHour();
 int TimeMin();
 /******************************************/
 
