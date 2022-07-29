@@ -6,9 +6,9 @@ LFLAGS= -lcurl -uClibc -lc -largp
 
 LIBS=
 
-SRC=requestor.c
+SRC=thermostatd.c
 OBJ=$(SRC:.c=.o)
-MAIN=hw
+MAIN=thermostatd
 
 RM=rm -rf
 
