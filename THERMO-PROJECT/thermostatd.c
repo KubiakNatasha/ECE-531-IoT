@@ -38,8 +38,9 @@ char *ERROR_FORMAT = "Format Error";
 void _signal_handler(const int signal);
 void _do_work(void);
 void HELP();
-int tempurature_get();
-void HeaterStatus();
+void ReadTemp();
+void HeaterStatus(); 
+void CheckArgument(); 
 /******************************************/
 
 /******************STRUCT******************/
@@ -104,10 +105,11 @@ int main(int argc, char *argv[]) {
   /* There should be an option to either just start the application or */
  /* to ask for help, with -h, or --help */
  /*No Argument.. thats impossible, but whatever*/
-    if(argc < 1) {
-			printf("Empty Argument.\n");
-			printf("Exiting...\n");
-			return INIT_ERR;
+ void CheckArgument(){
+    // if(argc < 1) {
+	// 		printf("Empty Argument.\n");
+	// 		printf("Exiting...\n");
+	// 		return INIT_ERR;
 			
 		}
 
@@ -130,14 +132,37 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
+ }
 
  
 
-/*****Want to Read Tempurature Continuously*****/
+/**************************************************************************************************/
+/****************TEMPURATURE READ and STATUS WRITE FUNCTIONS *************************************/
+
+int ReadTemp() {
+
+    char *p;
+    char temp[100];
+	FILE* fp = fopen("/tmp/temp", "rb");
+
+	if(fp == NULL) {
+		printf("Error accessing file\n");
+		return 1;
+	}
+
+	fgets(temp, sizeof(temp), fp);
+	fclose(fp);
+
+	int tempurature = strtol(temp, &p, 10);
+    printf("\nTemp Read: %d\n", temp);
+
+	return temp;
+}
+
 void HeaterStatus()
 {
    
-		int temp = tempurature_get();
+		int temp = ReadTemp();
 /*****As tempurature is read, check for celcius value above certain threshold, if so turn OFF heater*******/
 /*****Celcius above 30, or 86 F , heater OFF *****/
         if(temp >= 30) {
@@ -164,13 +189,14 @@ void HeaterStatus()
 
   
 
-    //work will be done by daemon
-    //counts and sleeps
-    //declared as non-static
+/***********************************************************************************/
+/*************PART OF DAWEMON WHERE STUFF GETS DONE??*******************************/
+/***********************************************************************************/
 void _do_work(void){
   
-       tempurature_get();
-       HeaterStatus()
+       ReadTemp();
+
+       HeaterStatus();
 
     for (int i = 0; 100; i++){
         READ_Thermo();
@@ -203,26 +229,6 @@ void _signal_handler(const int signal) {
             exit(OK);
 
     }
-}
-
-int tempurature_get() {
-
-    char *p;
-    char temp[100];
-	FILE* fp = fopen("/tmp/temp", "rb");
-
-	if(fp == NULL) {
-		printf("Error accessing file\n");
-		return 1;
-	}
-
-	fgets(temp, sizeof(temp), fp);
-	fclose(fp);
-
-	int tempurature = strtol(temp, &p, 10);
-    printf("\nTemp Read: %d\n", temp);
-
-	return temp;
 }
 
 
