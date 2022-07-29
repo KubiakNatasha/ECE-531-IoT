@@ -17,6 +17,7 @@
 
 #define DAEMON_NAME     "thermostat-projectd"
 #define URL             "" /*URL FOR SERVER?*/
+/* I was having a hard time figuring out AWS and mysql*/
 
 #define OK              0
 #define ERR_SETSID      1
@@ -40,7 +41,7 @@ void _do_work(void);
 void HELP();
 void ReadTemp();
 void HeaterStatus(); 
-void CheckArgument(); 
+ void CheckArgument(argc, argv);
 /******************************************/
 
 /******************STRUCT******************/
@@ -93,6 +94,7 @@ int main(int argc, char *argv[]) {
     signal(SIGTERM, _signal_handler);
     signal(SIGHUP, _signal_handler);
     
+    /* this should be the bulk of it I think*/
     _do_work();
 
 
@@ -105,19 +107,23 @@ int main(int argc, char *argv[]) {
   /* There should be an option to either just start the application or */
  /* to ask for help, with -h, or --help */
  /*No Argument.. thats impossible, but whatever*/
- void CheckArgument(){
-    // if(argc < 1) {
-	// 		printf("Empty Argument.\n");
-	// 		printf("Exiting...\n");
-	// 		return INIT_ERR;
+ void CheckArgument(argc, argv){
+     
+    syslog(LOG_INFO, "Recieving Arguments");
+
+    if(argc < 1) {
+			printf("Empty Argument.\n");
+			printf("Exiting...\n");
+            HELP();
+			return INIT_ERR;
 			
 		}
 
 	if(argc == 1) {
     /* Only one argument ( the starting argument )*/
 
-		syslog(LOG_INFO, "Running Daemon thermostatd!\n");
-		_daemon_time();
+		syslog(LOG_INFO, "Running Thermostatd!\n");
+
 
 	}
     /* more than one argument? this must mean help was called */
@@ -129,7 +135,13 @@ int main(int argc, char *argv[]) {
 			if((strcmp(argv[i], "-h") == 0) || (strcmp(argv[i], "--help") == 0)) 
             {
 				HELP();
+                EXIT(OK);
 			}
+            else{
+            printf("Unknown Argument. See -h, or --help, for assistance.\n");
+            HELP();
+            exit(INPUT_ERR);
+            }
 		}
 	}
  }
