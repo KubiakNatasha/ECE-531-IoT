@@ -39,6 +39,7 @@ void _signal_handler(const int signal);
 void _do_work(void);
 void HELP();
 int tempurature_get();
+void HeaterStatus();
 /******************************************/
 
 /******************STRUCT******************/
@@ -54,39 +55,6 @@ int main(int argc, char *argv[]) {
  openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
  syslog(LOG_INFO, "starting thermostat-projectd");
 
- 
-
-/*****Want to Read Tempurature Continuously*****/
-    while(1){
-		int temp = read_temp();
-/*****As tempurature is read, check for celcius value above certain threshold, if so turn OFF heater*******/
-/*****Celcius above 30, or 86 F , heater OFF *****/
-        if(temp >= 30) {
-			FILE *filep;
-			filep = fopen("/tmp/status", "wb");
-			char *status = "OFF";
-			fprintf(filep, "%s", status);
-			fclose(filep);
-			syslog(LOG_INFO, "OFF\n");
-
-		}
-		else if (temp <= 30) {
-			FILE *filep;
-			filep = fopen("/tmp/status", "wb");
-			char *status = "ON";
-			fprintf(filep, "%s", status);
-			fclose(filep);
-			syslog(LOG_INFO, "ON\n");
-		}
-
-
-
-    }
-
-  
-    syslog(LOG_INFO, "starting thermostat-projectd");
-    
-
     /* fork off the parent process*/
     pid_t pid = fork();
     
@@ -100,8 +68,6 @@ int main(int argc, char *argv[]) {
         return OK;
     }
 
-
-
     if(setsid() < -1) {
         syslog(LOG_ERR, ERROR_FORMAT, strerror(errno));
         return ERR_SETSID;
@@ -110,7 +76,6 @@ int main(int argc, char *argv[]) {
     close(STDIN_FILENO);
     close(STDOUT_FILENO);
     close(STDERR_FILENO);
-
 
     umask(S_IRUSR | S_IWUSR | S_IRGRP |S_IROTH);
 
@@ -130,15 +95,85 @@ int main(int argc, char *argv[]) {
     _do_work();
 
 
+    return ERROR;
 }
+
+
+
+
+  /* There should be an option to either just start the application or */
+ /* to ask for help, with -h, or --help */
+ /*No Argument.. thats impossible, but whatever*/
+    if(argc < 1) {
+			printf("Empty Argument.\n");
+			printf("Exiting...\n");
+			return INIT_ERR;
+			
+		}
+
+	if(argc == 1) {
+    /* Only one argument ( the starting argument )*/
+
+		syslog(LOG_INFO, "Running Daemon thermostatd!\n");
+		_daemon_time();
+
+	}
+    /* more than one argument? this must mean help was called */
+	else if (argc > 1) {
+		syslog(LOG_INFO, "Recieved Argument!\n");
+
+		for(int i = 1; i < argc; i++) {
+            /* check for -h, or --h */
+			if((strcmp(argv[i], "-h") == 0) || (strcmp(argv[i], "--help") == 0)) 
+            {
+				HELP();
+			}
+		}
+	}
+
+ 
+
+/*****Want to Read Tempurature Continuously*****/
+void HeaterStatus()
+{
+   
+		int temp = tempurature_get();
+/*****As tempurature is read, check for celcius value above certain threshold, if so turn OFF heater*******/
+/*****Celcius above 30, or 86 F , heater OFF *****/
+        if(temp >= 30) {
+			FILE *filep;
+			filep = fopen("/tmp/status", "wb");
+			char *status = "OFF";
+			fprintf(filep, "%s", status);
+			fclose(filep);
+			syslog(LOG_INFO, "OFF\n");
+
+		}
+		else if (temp <= 30) {
+			FILE *filep;
+			filep = fopen("/tmp/status", "wb");
+			char *status = "ON";
+			fprintf(filep, "%s", status);
+			fclose(filep);
+			syslog(LOG_INFO, "ON\n");
+		}
+}
+
+
+
+
+  
 
     //work will be done by daemon
     //counts and sleeps
     //declared as non-static
 void _do_work(void){
   
+       tempurature_get();
+       HeaterStatus()
 
     for (int i = 0; 100; i++){
+        READ_Thermo();
 
         syslog(LOG_INFO, "iteration:%d", i);
         sleep(1);
