@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DAEMON_NAME="thermostatd"
+DAEMON_NAME="thermostat-projectd"
 
 start()
 {
