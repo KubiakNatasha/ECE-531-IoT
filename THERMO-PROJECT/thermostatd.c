@@ -141,7 +141,7 @@ int main(int argc, char *argv[]) {
             else{
             printf("Unknown Argument. See -h, or --help, for assistance.\n");
             HELP();
-            exit(INPUT_ERR);
+            exit(INIT_ERR);
             }
 		}
 	}
