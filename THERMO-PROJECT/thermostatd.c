@@ -49,7 +49,7 @@ void DELETE(CURL *curl, char *postdata);
 int main(int argc, char **argv) {
 
   
-    CURL *curl;
+    // CURL *curl;
 
 
     openlog(DAEMON_NAME, LOG_PID | LOG_NDELAY | LOG_NOWAIT, LOG_DAEMON);
@@ -288,92 +288,92 @@ void HELP() {
 
 
 
-void GET(CURL *curl, char *postdata) {
-	/*GET method means retrieve whatever information 
-	(in the form of an entity) is identified by the Request-URI.*/
+// void GET(CURL *curl, char *postdata) {
+// 	/*GET method means retrieve whatever information 
+// 	(in the form of an entity) is identified by the Request-URI.*/
 
 
-	CURLcode res;
-	curl = curl_easy_init();
-	int httpStatus = 0;
+// 	CURLcode res;
+// 	curl = curl_easy_init();
+// 	int httpStatus = 0;
 
-	if(curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, URL);
-		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-		res = curl_easy_perform(curl);
+// 	if(curl) {
+// 		curl_easy_setopt(curl, CURLOPT_URL, URL);
+// 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+// 		res = curl_easy_perform(curl);
 
-            if(res != CURLE_OK) {
-                fprintf(stderr, "Curl unable to http GET\n %s\n", 
-                        curl_easy_strerror(res));       
-            }
-				else if(res == CURLE_OK) {
-				long response_code;
-				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
-				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
-			}
-		curl_easy_cleanup(curl);
-	}
-}
-
-
-void POST (CURL *curl, char *postdata) {
-	/* POST method is used to request that the origin server
-	 accept the entity enclosed in the request as a new 
-	 subordinate of the resource identified by the Request-URI
-	  in the Request-Line.*/
-
-	CURLcode res;
-	curl = curl_easy_init();
-	int httpStatus = 0;
+//             if(res != CURLE_OK) {
+//                 fprintf(stderr, "Curl unable to http GET\n %s\n", 
+//                         curl_easy_strerror(res));       
+//             }
+// 				else if(res == CURLE_OK) {
+// 				long response_code;
+// 				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+// 				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
+// 			}
+// 		curl_easy_cleanup(curl);
+// 	}
+// }
 
 
-	if(curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, URL);
-		curl_easy_setopt(curl, CURLOPT_POST, 1L);
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, postdata);
-		res = curl_easy_perform(curl);
+// void POST (CURL *curl, char *postdata) {
+// 	/* POST method is used to request that the origin server
+// 	 accept the entity enclosed in the request as a new 
+// 	 subordinate of the resource identified by the Request-URI
+// 	  in the Request-Line.*/
 
-            if(res != CURLE_OK) {
-                fprintf(stderr, "Curl unable to HTTP POST\n %s\n", 
-                curl_easy_strerror(res));
-            }
-				else if(res == CURLE_OK) {
-				long response_code;
-				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
-				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
-			}
-
-		curl_easy_cleanup(curl);
-	}
-}
+// 	CURLcode res;
+// 	curl = curl_easy_init();
+// 	int httpStatus = 0;
 
 
-void DELETE(CURL *curl, char *postdata) {
-	/* DELETE method requests that the origin server
-	 delete the resource identified by the Request-URI.*/ 
+// 	if(curl) {
+// 		curl_easy_setopt(curl, CURLOPT_URL, URL);
+// 		curl_easy_setopt(curl, CURLOPT_POST, 1L);
+// 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
+// 		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, postdata);
+// 		res = curl_easy_perform(curl);
+
+//             if(res != CURLE_OK) {
+//                 fprintf(stderr, "Curl unable to HTTP POST\n %s\n", 
+//                 curl_easy_strerror(res));
+//             }
+// 				else if(res == CURLE_OK) {
+// 				long response_code;
+// 				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+// 				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
+// 			}
+
+// 		curl_easy_cleanup(curl);
+// 	}
+// }
+
+
+// void DELETE(CURL *curl, char *postdata) {
+// 	/* DELETE method requests that the origin server
+// 	 delete the resource identified by the Request-URI.*/ 
 	
-	CURLcode res;
-	curl = curl_easy_init();
-	int httpStatus = 0;
+// 	CURLcode res;
+// 	curl = curl_easy_init();
+// 	int httpStatus = 0;
 
-	if(curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, URL);
-		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
-		res = curl_easy_perform(curl);
+// 	if(curl) {
+// 		curl_easy_setopt(curl, CURLOPT_URL, URL);
+// 		curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+// 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);
+// 		res = curl_easy_perform(curl);
 
-            if(res != CURLE_OK) {
-                fprintf(stderr, "Curl unable to HTTP DELETE\n %s\n", 
-                curl_easy_strerror(res));
-            }
-				else if(res == CURLE_OK) {
-				long response_code;
-				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
-				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
-			}
+//             if(res != CURLE_OK) {
+//                 fprintf(stderr, "Curl unable to HTTP DELETE\n %s\n", 
+//                 curl_easy_strerror(res));
+//             }
+// 				else if(res == CURLE_OK) {
+// 				long response_code;
+// 				curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+// 				printf("\nHTTP RESPONSE CODE: %ld\n", response_code);
+// 			}
 			
 
-		curl_easy_cleanup(curl);
-	}
-}
+// 		curl_easy_cleanup(curl);
+// 	}
+// }
