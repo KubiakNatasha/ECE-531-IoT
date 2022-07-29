@@ -143,7 +143,7 @@ int main(int argc, char **argv) {
 void _do_work(void){
   
 
-    for (int i = 0; 10; i++){
+    while(1){
         ReadTemp();
         HeaterStatus();
        // syslog(LOG_INFO, "iteration:%d", i);
