@@ -37,6 +37,7 @@ void _do_work(void);
 void HELP();
 int ReadTemp();
 void HeaterStatus();
+void Time();
 /******************************************/
 
 
@@ -135,11 +136,12 @@ int main(int argc, char **argv) {
 void _do_work(void){
   
 
-    for (int i = 0; 100; i++){
+    for (int i = 0; 10; i++){
         ReadTemp();
         HeaterStatus();
        // syslog(LOG_INFO, "iteration:%d", i);
         sleep(1);
+        /* Wait one second so tempurature can increase */
     }
 }
 
@@ -173,9 +175,10 @@ void _signal_handler(const int signal) {
 /**** Write to file to change status to ON or OFF for heater *****/
 /*****************************************************************/
 int ReadTemp() {
-    printf("goofy");
+    
     char *p;
     char temp[100];
+    syslog(LOG_INFO, "Read Thermocouple File from /tmp/temp\n");
 	FILE* fp = fopen("/tmp/temp", "rb");
 
 	if(fp == NULL) {
@@ -193,6 +196,7 @@ int ReadTemp() {
 	return tempurature;
 }
 
+
 void HeaterStatus()
 {
    
@@ -205,7 +209,7 @@ void HeaterStatus()
 			char *status = "OFF";
 			fprintf(filep, "%s", status);
 			fclose(filep);
-			syslog(LOG_INFO, "OFF\n");
+			syslog(LOG_INFO, "OFF\n"); /* Need a time stamp */
 
 		}
 		else if (temp <= 30) {
@@ -214,8 +218,23 @@ void HeaterStatus()
 			char *status = "ON";
 			fprintf(filep, "%s", status);
 			fclose(filep);
-			syslog(LOG_INFO, "ON\n");
+			syslog(LOG_INFO, "ON\n"); /* need a timestamp */
 		}
+}
+
+
+
+
+void Time(void) {
+  time_t Time;
+  struct tm *tm;
+  while(true)
+  {
+    time(&Time);
+    tm = localtime(&Time);
+    syslog(LOG_INFO, "The Time Is: %i:%i:%i\n",tm->tm_hour,tm->tm_min,tm->tm_sec);
+    sleep(1);
+  }
 }
 
 void HELP() {
