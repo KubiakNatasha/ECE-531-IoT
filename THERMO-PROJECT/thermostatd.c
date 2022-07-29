@@ -137,7 +137,7 @@ void _do_work(void){
 
     for (int i = 0; 100; i++){
         ReadTemp();
-        HeaterStatus()
+        HeaterStatus();
        // syslog(LOG_INFO, "iteration:%d", i);
         sleep(1);
     }
