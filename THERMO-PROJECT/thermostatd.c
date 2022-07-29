@@ -209,7 +209,8 @@ void HeaterStatus()
 			char *status = "OFF";
 			fprintf(filep, "%s", status);
 			fclose(filep);
-			syslog(LOG_INFO, "OFF\n"); /* Need a time stamp */
+			syslog(LOG_INFO, "OFF\n"); 
+            Time();     `   /* Need a time stamp */
 
 		}
 		else if (temp <= 30) {
@@ -218,7 +219,8 @@ void HeaterStatus()
 			char *status = "ON";
 			fprintf(filep, "%s", status);
 			fclose(filep);
-			syslog(LOG_INFO, "ON\n"); /* need a timestamp */
+			syslog(LOG_INFO, "ON\n"); 
+            Time();         /* need a timestamp */
 		}
 }
 
