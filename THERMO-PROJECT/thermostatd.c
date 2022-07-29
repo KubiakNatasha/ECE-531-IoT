@@ -38,7 +38,7 @@ char *ERROR_FORMAT = "Format Error";
 void _signal_handler(const int signal);
 void _do_work(void);
 void HELP();
-void ReadTemp();
+int ReadTemp();
 void HeaterStatus(); 
  void CheckArgument(argc, argv);
 /******************************************/
