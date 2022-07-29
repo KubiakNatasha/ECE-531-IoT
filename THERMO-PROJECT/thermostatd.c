@@ -200,7 +200,8 @@ int ReadTemp() {
 
 void HeaterStatus()
 {
-   
+        int hour = TimeHour();
+        int min  = TimeMin();
 		int temp = ReadTemp();
 /*****As tempurature is read, check for celcius value above certain threshold, if so turn OFF heater*******/
 /*****Celcius above 30, or 86 F , heater OFF *****/
@@ -214,16 +215,7 @@ void HeaterStatus()
             Time();        /* Need a time stamp */
 
 		}
-         // print local time
-    if (hours < 12) {    // before midday
-        printf("Time is %02d:%02d:%02d am\n", hours, minutes, seconds);
-    }
-    else {    // after midday
-        printf("Time is %02d:%02d:%02d pm\n", hours - 12, minutes, seconds);
-    }
- 
-    // print the current date
-    printf("Date is: %02d/%02d/%d\n", day, month, year);
+     
 		else if (temp <= 30) {
 			FILE *filep;
 			filep = fopen("/tmp/status", "wb");
@@ -256,7 +248,7 @@ int TimeHour() {
 
 int TimeMin() {
 
-    int hours;
+    int min;
 
 
     time_t now;
@@ -264,8 +256,8 @@ int TimeMin() {
     time(&now);
     struct tm *local = localtime(&now);
  
-    hours = local->tm_hour;         
-    return (hours);
+    minutes = local->tm_min;         
+    return (minutes);
  
 }
 
