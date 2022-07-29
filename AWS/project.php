@@ -1,44 +1,42 @@
 <?php include "../inc/projectdb.inc"; ?>
 <html>
 <body>
-<h1>THERMOSTAT</h1>
+<h1>Thermostat</h1>
 <?php
 
   /* Connect to MySQL and select the database. */
-  $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+  /* */
+  $connection = mysqli_connect(DB_SERVER, DB_USERTEMP, DB_PASSWORD);
 
   if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
 
   $database = mysqli_select_db($connection, DB_DATABASE);
 
-  /* Ensure that the EMPLOYEES table exists. */
-  VerifyThermoTable($connection, DB_DATABASE);
+  /* Ensure that the Thermostat table exists. */
+  VerifyThermostatTable($connection, DB_DATABASE);
 
-  /* If input fields are populated, add a row to the EMPLOYEES table. */
-//   $employee_name = htmlentities($_POST['NAME']);
-//   $employee_address = htmlentities($_POST['ADDRESS']);
+  /* If input fields are populated, add a row to the Thermostat table. */
+  $thermo_TEMP = htmlentities($_POST['TEMP']);
+  $thermo_HEATER = htmlentities($_POST['HEATER']);
 
-  $thermo_temp = htmlentities($_POST['TEMPURATURE']);
-  $thermo_heater = htmlentities($_POST['HEATER']);
-
-  if (strlen($thermo_temp) || strlen($thermo_heater)) {
-    AddStatus($connection, $thermo_temp, $thermo_heater); //Add employee
+  if (strlen($thermo_TEMP) || strlen($thermo_HEATER)) {
+    Addthermo($connection, $thermo_TEMP, $thermo_HEATER);
   }
 ?>
 
 <!-- Input form -->
-<form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
+<form action="<?PHP echo $_SERVER['SCRIPT_TEMP'] ?>" method="POST">
   <table border="0">
     <tr>
-      <td>NAME</td>
-      <td>ADDRESS</td>
+      <td>TEMP</td>
+      <td>HEATER</td>
     </tr>
     <tr>
       <td>
-        <input type="text" name="TEMPURATURE" maxlength="45" size="30" />
+        <input type="text" TEMP="TEMP" maxlength="45" size="30" />
       </td>
       <td>
-        <input type="text" name="HEATER" maxlength="90" size="60" />
+        <input type="text" TEMP="HEATER" maxlength="90" size="60" />
       </td>
       <td>
         <input type="submit" value="Add Data" />
@@ -51,13 +49,13 @@
 <table border="1" cellpadding="2" cellspacing="2">
   <tr>
     <td>ID</td>
-    <td>TEMPURATURE</td>
+    <td>TEMP</td>
     <td>HEATER</td>
   </tr>
 
 <?php
 
-$result = mysqli_query($connection, "SELECT * FROM THERMOSTAT");
+$result = mysqli_query($connection, "SELECT * FROM Thermostat");
 
 while($query_data = mysqli_fetch_row($result)) {
   echo "<tr>";
@@ -84,41 +82,40 @@ while($query_data = mysqli_fetch_row($result)) {
 
 <?php
 
-/* Add an employee to the table. */
-function AddStatus($connection, $tempurature, $heater) {
-   $t = mysqli_real_escape_string($connection, $tempurature);
-   $h = mysqli_real_escape_string($connection, $heater);
+/* Add an thermo to the table. */
+function Addthermo($connection, $TEMP, $HEATER) {
+   $t = mysqli_real_escape_string($connection, $TEMP);
+   $h = mysqli_real_escape_string($connection, $HEATER);
 
-   $query = "INSERT INTO THERMOSTAT (TEMPURATURE, HEATER) VALUES ('$t', '$h');";
+   $query = "INSERT INTO Thermostat (TEMP, HEATER) VALUES ('$t', '$h');";
 
-   if(!mysqli_query($connection, $query)) echo("<p>Error adding thermostat data.</p>");
+   if(!mysqli_query($connection, $query)) echo("<p>Error adding thermo data.</p>");
 }
 
 /* Check whether the table exists and, if not, create it. */
-function VerifyThermostatTable($connection, $dbName) {
-  if(!TableExists("THERMOSTAT", $connection, $dbName))
+function VerifyThermostatTable($connection, $dbTEMP) {
+  if(!TableExists("Thermostat", $connection, $dbTEMP))
   {
-     $query = "CREATE TABLE THERMOSTAT (
+     $query = "CREATE TABLE Thermostat (
          ID int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-         NAME VARCHAR(45),
-         ADDRESS VARCHAR(90)
+         TEMP VARCHAR(45),
+         HEATER VARCHAR(90)
        )";
 
      if(!mysqli_query($connection, $query)) echo("<p>Error creating table.</p>");
   }
 }
 
-/* Check for the existence of a table. */ 
-/*??*/
-function TableExists($tableName, $connection, $dbName) {
-  $t = mysqli_real_escape_string($connection, $tableName);
-  $d = mysqli_real_escape_string($connection, $dbName);
+/* Check for the existence of a table. */
+function TableExists($tableTEMP, $connection, $dbTEMP) {
+  $t = mysqli_real_escape_string($connection, $tableTEMP);
+  $d = mysqli_real_escape_string($connection, $dbTEMP);
 
   $checktable = mysqli_query($connection,
-      "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_NAME = '$t' AND TABLE_SCHEMA = '$d'");
+      "SELECT TABLE_TEMP FROM information_schema.TABLES WHERE TABLE_TEMP = '$t' AND TABLE_SCHEMA = '$d'");
 
   if(mysqli_num_rows($checktable) > 0) return true;
 
   return false;
 }
-?>                
+?>  
