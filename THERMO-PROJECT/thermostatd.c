@@ -165,6 +165,7 @@ void _signal_handler(const int signal) {
 }
 
 void HELP() {
+
         printf("\nTHERMOSTAT HELP:\n");
 		printf("-------------------------\n");
         printf("EXIT DEFINITIONS\n");
@@ -179,5 +180,5 @@ void HELP() {
         printf("COMMAND LINE INPUT FORMAT\n");
         printf("-------------------------\n");
         printf("START:\t./project\n");
-        printf("HELP:\t./project -h\t OR\t ./project --help\n");
+        printf("HELP: ./project -h OR ./project --help\n");
 }
