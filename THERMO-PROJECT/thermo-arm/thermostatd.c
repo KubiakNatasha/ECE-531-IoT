@@ -12,7 +12,7 @@
 #include <curl/curl.h>
 #include <argp.h>
 
-#define DAEMON_NAME     "thermostat-projectd"
+#define DAEMON_NAME     "thermostatd"
 #define URL             "http://ec2-35-160-6-245.us-west-2.compute.amazonaws.com/project.php" /*URL FOR SERVER?*/
 /* I was having a hard time figuring out AWS and mysql*/
 

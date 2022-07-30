@@ -8,7 +8,7 @@ LIBS=
 
 SRC=thermostatd.c
 OBJ=$(SRC:.c=.o)
-MAIN=thermostatfinal
+MAIN=thermostatd
 
 RM=rm -rf
 
